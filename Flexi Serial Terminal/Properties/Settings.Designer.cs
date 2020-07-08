@@ -9,18 +9,306 @@
 //------------------------------------------------------------------------------
 
 namespace Flexi_Serial_Terminal.Properties {
-
-
-	[global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-	[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "11.0.0.0")]
-	internal sealed partial class Settings: global::System.Configuration.ApplicationSettingsBase {
-
-		private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
-
-		public static Settings Default {
-			get {
-				return defaultInstance;
-			}
-		}
-	}
+    
+    
+    [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.4.0.0")]
+    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
+        
+        private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
+        
+        public static Settings Default {
+            get {
+                return defaultInstance;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string COMPort {
+            get {
+                return ((string)(this["COMPort"]));
+            }
+            set {
+                this["COMPort"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("9600")]
+        public uint BaudRate {
+            get {
+                return ((uint)(this["BaudRate"]));
+            }
+            set {
+                this["BaudRate"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool P1_Enabled {
+            get {
+                return ((bool)(this["P1_Enabled"]));
+            }
+            set {
+                this["P1_Enabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool P2_Enabled {
+            get {
+                return ((bool)(this["P2_Enabled"]));
+            }
+            set {
+                this["P2_Enabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool P3_Enabled {
+            get {
+                return ((bool)(this["P3_Enabled"]));
+            }
+            set {
+                this["P3_Enabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool P4_Enabled {
+            get {
+                return ((bool)(this["P4_Enabled"]));
+            }
+            set {
+                this["P4_Enabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string P1_Name {
+            get {
+                return ((string)(this["P1_Name"]));
+            }
+            set {
+                this["P1_Name"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string P2_Name {
+            get {
+                return ((string)(this["P2_Name"]));
+            }
+            set {
+                this["P2_Name"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string P3_Name {
+            get {
+                return ((string)(this["P3_Name"]));
+            }
+            set {
+                this["P3_Name"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string P4_Name {
+            get {
+                return ((string)(this["P4_Name"]));
+            }
+            set {
+                this["P4_Name"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public byte IndividualPollInterval {
+            get {
+                return ((byte)(this["IndividualPollInterval"]));
+            }
+            set {
+                this["IndividualPollInterval"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string C1_Name {
+            get {
+                return ((string)(this["C1_Name"]));
+            }
+            set {
+                this["C1_Name"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string C2_Name {
+            get {
+                return ((string)(this["C2_Name"]));
+            }
+            set {
+                this["C2_Name"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string C3_Name {
+            get {
+                return ((string)(this["C3_Name"]));
+            }
+            set {
+                this["C3_Name"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string C4_Name {
+            get {
+                return ((string)(this["C4_Name"]));
+            }
+            set {
+                this["C4_Name"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string C5_Name {
+            get {
+                return ((string)(this["C5_Name"]));
+            }
+            set {
+                this["C5_Name"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string C6_Name {
+            get {
+                return ((string)(this["C6_Name"]));
+            }
+            set {
+                this["C6_Name"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string C7_Name {
+            get {
+                return ((string)(this["C7_Name"]));
+            }
+            set {
+                this["C7_Name"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string CC1_Name {
+            get {
+                return ((string)(this["CC1_Name"]));
+            }
+            set {
+                this["CC1_Name"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string CC2_Name {
+            get {
+                return ((string)(this["CC2_Name"]));
+            }
+            set {
+                this["CC2_Name"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string CC3_Name {
+            get {
+                return ((string)(this["CC3_Name"]));
+            }
+            set {
+                this["CC3_Name"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string CC1_Param {
+            get {
+                return ((string)(this["CC1_Param"]));
+            }
+            set {
+                this["CC1_Param"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string CC2_Param {
+            get {
+                return ((string)(this["CC2_Param"]));
+            }
+            set {
+                this["CC2_Param"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string CC3_Param {
+            get {
+                return ((string)(this["CC3_Param"]));
+            }
+            set {
+                this["CC3_Param"] = value;
+            }
+        }
+    }
 }

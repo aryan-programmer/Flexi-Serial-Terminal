@@ -1,44 +1,51 @@
-﻿<Window
-	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	xmlns:local="clr-namespace:Flexi_Serial_Terminal"
-	xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-	TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-	Background="{DynamicResource MaterialDesignPaper}"
-	FontFamily="{materialDesign:MaterialDesignFont}"
-	TextElement.FontSize="14px"
-	x:Class="Flexi_Serial_Terminal.MainWindow"
-	mc:Ignorable="d"
-	Title="MainWindow" Height="775" Width="800" MinWidth="760" MinHeight="735">
+﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Flexi_Serial_Terminal"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignPaper}" FontFamily="{materialDesign:MaterialDesignFont}"
+        TextElement.FontSize="14px" x:Class="Flexi_Serial_Terminal.MainWindow" mc:Ignorable="d"
+        Title="Flexi Serial Terminal" Height="770" Width="800" MinWidth="760" MinHeight="770">
+	<Window.CommandBindings>
+		<CommandBinding Command="local:CustomCommands.Exit" CanExecute="CanAlwaysExecute" Executed="Exit_OnExecuted" />
+		<CommandBinding Command="local:CustomCommands.Connect" CanExecute="Connect_OnCanExecute"
+		                Executed="Connect_OnExecuted" />
+		<CommandBinding Command="local:CustomCommands.Disconnect" CanExecute="Disconnect_OnCanExecute"
+		                Executed="Disconnect_OnExecuted" />
+		<CommandBinding Command="local:CustomCommands.COMConnOptions" CanExecute="CanAlwaysExecute"
+		                Executed="COMCommOptions_OnExecuted" />
+	</Window.CommandBindings>
 	<Grid>
 		<Grid.RowDefinitions>
-			<RowDefinition Height="Auto" />
-			<RowDefinition />
-			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" /> <RowDefinition Height="Auto" /> <RowDefinition /> <RowDefinition Height="Auto" />
 		</Grid.RowDefinitions>
-		<StackPanel Orientation="Vertical">
+		<Menu VerticalAlignment="Top" FontSize="18">
+			<MenuItem Header="File" Height="Auto" Padding="10,5">
+				<MenuItem Command="local:CustomCommands.COMConnOptions" Height="Auto" Padding="10,5" />
+				<Separator />
+				<MenuItem Command="local:CustomCommands.Connect" Height="Auto" Padding="10,5" />
+				<MenuItem Command="local:CustomCommands.Disconnect" Height="Auto" Padding="10,5" />
+				<Separator />
+				<MenuItem Command="local:CustomCommands.Exit" Height="Auto" Padding="10,5" />
+			</MenuItem>
+		</Menu>
+		<StackPanel Orientation="Vertical" Grid.Row="1">
 			<TextBlock Text="Poll commands &amp; values" HorizontalAlignment="Left" Margin="10,10,10,0" VerticalAlignment="Top"
 			           FontSize="20" FontWeight="Bold" />
-			<materialDesign:Card
-				Background="{DynamicResource SecondaryHueLightBrush}"
-				Foreground="{DynamicResource SecondaryHueLightForegroundBrush}" Margin="10,5">
+			<materialDesign:Card Background="{DynamicResource SecondaryHueLightBrush}"
+			                     Foreground="{DynamicResource SecondaryHueLightForegroundBrush}" Margin="10,5">
 				<Grid Margin="5">
 					<Grid.RowDefinitions>
-						<RowDefinition Height="Auto" />
-						<RowDefinition Height="Auto" />
-						<RowDefinition Height="Auto" />
-						<RowDefinition Height="Auto" />
-						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" /> <RowDefinition Height="Auto" /> <RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" /> <RowDefinition Height="Auto" />
 					</Grid.RowDefinitions>
 					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="Auto" />
-						<ColumnDefinition Width="Auto" />
-						<ColumnDefinition Width="Auto" MinWidth="75" />
-						<ColumnDefinition Width="Auto" />
-						<ColumnDefinition />
+						<ColumnDefinition Width="Auto" /> <ColumnDefinition Width="Auto" />
+						<ColumnDefinition Width="Auto" MinWidth="75" /> <ColumnDefinition Width="Auto" /> <ColumnDefinition />
 					</Grid.ColumnDefinitions>
+					<!--#region Headings -->
 					<TextBlock Grid.Row="0" Grid.Column="0" Text="Enabled" HorizontalAlignment="Center" Margin="5,7.137"
 					           VerticalAlignment="Center" FontWeight="Medium" />
 					<TextBlock Grid.Row="0" Grid.Column="1" Text="Polling Command" HorizontalAlignment="Center" Margin="5,7.137"
@@ -47,76 +54,97 @@
 					           VerticalAlignment="Center" FontWeight="Medium" />
 					<TextBlock Grid.Row="0" Grid.Column="4" Text="Save file (CSV)" HorizontalAlignment="Left" Margin="5"
 					           VerticalAlignment="Center" FontWeight="Medium" />
-					<CheckBox Grid.Row="1" Grid.Column="0" x:Name="P1_Enabled" Content="" HorizontalAlignment="Center" Margin="5"
-					          VerticalAlignment="Center" />
+					<!--#endregion-->
+					<!--#region Poll Value 1 -->
+					<ToggleButton Grid.Row="1" Grid.Column="0" x:Name="P1_Enabled" HorizontalAlignment="Center" Margin="5"
+					              VerticalAlignment="Center" Style="{StaticResource MaterialDesignSwitchDarkToggleButton}"
+					              IsChecked="False">
+						<materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
+							<SolidColorBrush Color="DarkGreen" />
+						</materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
+					</ToggleButton>
 					<TextBox Grid.Row="1" Grid.Column="1" x:Name="P1_Command" ToolTip="Polling Command" Margin="5" TextWrapping="Wrap"
 					         VerticalAlignment="Center" TextAlignment="Center" />
 					<TextBlock Grid.Row="1" Grid.Column="2" x:Name="P1_Value" HorizontalAlignment="Center" Margin="5.329,5,5.33,5"
 					           VerticalAlignment="Center" Text="Label" />
-					<Button materialDesign:ButtonAssist.CornerRadius="13" Grid.Row="1" Grid.Column="3" x:Name="P1_BrowseFile"
-					        Content="Browse file" HorizontalAlignment="Right"
+					<Button Grid.Row="1" Grid.Column="3" x:Name="P1_BrowseFile" Content="Browse file" HorizontalAlignment="Right"
 					        Margin="5" VerticalAlignment="Center" Height="Auto" />
 					<TextBlock Grid.Row="1" Grid.Column="4" x:Name="P1_File" Text="Label" Margin="5" VerticalAlignment="Center" />
-					<CheckBox Grid.Row="2" Grid.Column="0" x:Name="P2_Enabled" Content="" HorizontalAlignment="Center" Margin="5"
-					          VerticalAlignment="Center" />
+					<!--#endregion-->
+					<!--#region Poll Value 2 -->
+					<ToggleButton Grid.Row="2" Grid.Column="0" x:Name="P2_Enabled" HorizontalAlignment="Center" Margin="5"
+					              VerticalAlignment="Center" Style="{StaticResource MaterialDesignSwitchDarkToggleButton}"
+					              IsChecked="False">
+						<materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
+							<SolidColorBrush Color="DarkGreen" />
+						</materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
+					</ToggleButton>
 					<TextBox Grid.Row="2" Grid.Column="1" x:Name="P2_Command" ToolTip="Polling Command" Margin="5" TextWrapping="Wrap"
 					         VerticalAlignment="Center" TextAlignment="Center" />
 					<TextBlock Grid.Row="2" Grid.Column="2" x:Name="P2_Value" HorizontalAlignment="Center" Margin="5.329,5,5.33,5"
 					           VerticalAlignment="Center" Text="Label" />
-					<Button materialDesign:ButtonAssist.CornerRadius="13" Grid.Row="2" Grid.Column="3" x:Name="P2_BrowseFile"
-					        Content="Browse file" HorizontalAlignment="Right"
+					<Button Grid.Row="2" Grid.Column="3" x:Name="P2_BrowseFile" Content="Browse file" HorizontalAlignment="Right"
 					        Margin="5" VerticalAlignment="Center" Height="Auto" />
 					<TextBlock Grid.Row="2" Grid.Column="4" x:Name="P2_File" Text="Label" Margin="5" VerticalAlignment="Center" />
-					<CheckBox Grid.Row="3" Grid.Column="0" x:Name="P3_Enabled" Content="" HorizontalAlignment="Center" Margin="5"
-					          VerticalAlignment="Center" />
+					<!--#endregion-->
+					<!--#region Poll Value 3 -->
+					<ToggleButton Grid.Row="3" Grid.Column="0" x:Name="P3_Enabled" HorizontalAlignment="Center" Margin="5"
+					              VerticalAlignment="Center" Style="{StaticResource MaterialDesignSwitchDarkToggleButton}"
+					              IsChecked="False">
+						<materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
+							<SolidColorBrush Color="DarkGreen" />
+						</materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
+					</ToggleButton>
 					<TextBox Grid.Row="3" Grid.Column="1" x:Name="P3_Command" ToolTip="Polling Command" Margin="5" TextWrapping="Wrap"
 					         VerticalAlignment="Center" TextAlignment="Center" />
 					<TextBlock Grid.Row="3" Grid.Column="2" x:Name="P3_Value" HorizontalAlignment="Center" Margin="5.329,5,5.33,5"
 					           VerticalAlignment="Center" Text="Label" />
-					<Button materialDesign:ButtonAssist.CornerRadius="13" Grid.Row="3" Grid.Column="3" x:Name="P3_BrowseFile"
-					        Content="Browse file" HorizontalAlignment="Right"
+					<Button Grid.Row="3" Grid.Column="3" x:Name="P3_BrowseFile" Content="Browse file" HorizontalAlignment="Right"
 					        Margin="5" VerticalAlignment="Center" Height="Auto" />
 					<TextBlock Grid.Row="3" Grid.Column="4" x:Name="P3_File" Text="Label" Margin="5" VerticalAlignment="Center" />
-					<CheckBox Grid.Row="4" Grid.Column="0" x:Name="P4_Enabled" Content="" HorizontalAlignment="Center" Margin="5"
-					          VerticalAlignment="Center" />
+					<!--#endregion-->
+					<!--#region Poll Value 4 -->
+					<ToggleButton Grid.Row="4" Grid.Column="0" x:Name="P4_Enabled" HorizontalAlignment="Center" Margin="5"
+					              VerticalAlignment="Center" Style="{StaticResource MaterialDesignSwitchDarkToggleButton}"
+					              IsChecked="False">
+						<materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
+							<SolidColorBrush Color="DarkGreen" />
+						</materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
+					</ToggleButton>
 					<TextBox Grid.Row="4" Grid.Column="1" x:Name="P4_Command" ToolTip="Polling Command" Margin="5" TextWrapping="Wrap"
 					         VerticalAlignment="Center" TextAlignment="Center" />
 					<TextBlock Grid.Row="4" Grid.Column="2" x:Name="P4_Value" HorizontalAlignment="Center" Margin="5.329,5,5.33,5"
 					           VerticalAlignment="Center" Text="Label" />
-					<Button materialDesign:ButtonAssist.CornerRadius="13" Grid.Row="4" Grid.Column="3" x:Name="P4_BrowseFile"
-					        Content="Browse file" HorizontalAlignment="Right"
+					<Button Grid.Row="4" Grid.Column="3" x:Name="P4_BrowseFile" Content="Browse file" HorizontalAlignment="Right"
 					        Margin="5" VerticalAlignment="Center" Height="Auto" />
 					<TextBlock Grid.Row="4" Grid.Column="4" x:Name="P4_File" Text="Label" Margin="5" VerticalAlignment="Center" />
+					<!--#endregion-->
 				</Grid>
 			</materialDesign:Card>
-			<materialDesign:Card
-				Background="{DynamicResource SecondaryHueLightBrush}"
-				Foreground="{DynamicResource SecondaryHueLightForegroundBrush}" Margin="10,5,10,10" HorizontalAlignment="Left">
+			<materialDesign:Card Background="{DynamicResource SecondaryHueLightBrush}"
+			                     Foreground="{DynamicResource SecondaryHueLightForegroundBrush}" Margin="10,5,10,10"
+			                     HorizontalAlignment="Left">
 				<Grid Margin="5">
 					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="Auto" />
-						<ColumnDefinition />
+						<ColumnDefinition Width="Auto" /> <ColumnDefinition />
 					</Grid.ColumnDefinitions>
-					<TextBlock HorizontalAlignment="Right" Margin="5" TextWrapping="Wrap"
-					           VerticalAlignment="Center" FontWeight="Medium">
-						<Run Text="Polling timeout" /><Run Text=" " /><Run Text="(ms):" />
+					<TextBlock HorizontalAlignment="Right" Margin="5" TextWrapping="Wrap" VerticalAlignment="Center"
+					           FontWeight="Medium">
+						<Run Text="Individual p" /><Run Text="oll" /><Run Text=" interval" /><Run Text=" (ms):" />
 					</TextBlock>
-					<local:NumericSpinner Grid.Column="1" x:Name="PollingTimeout" HorizontalAlignment="Left" Margin="5" VerticalAlignment="Center" Value="60"
-					                      Decimals="0" MinValue="0" MinWidth="50" />
+					<local:NumericSpinner Grid.Column="1" x:Name="PollingTimeout" HorizontalAlignment="Left" Margin="5"
+					                      VerticalAlignment="Center" Value="60" Decimals="0" MinValue="0" MinWidth="75" />
 				</Grid>
 			</materialDesign:Card>
 		</StackPanel>
-		<StackPanel Grid.Row="1" VerticalAlignment="Center">
+		<StackPanel Grid.Row="2" VerticalAlignment="Center">
 			<TextBlock TextWrapping="Wrap" Text="Send commands" Padding="0" FontSize="20" FontWeight="Bold"
 			           HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,10,0" />
 			<Grid Margin="5">
 				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="1*" MinWidth="105" />
-					<ColumnDefinition Width="1*" MinWidth="105" />
-					<ColumnDefinition Width="1*" MinWidth="105" />
-					<ColumnDefinition Width="1*" MinWidth="105" />
-					<ColumnDefinition Width="1*" MinWidth="105" />
-					<ColumnDefinition Width="1*" MinWidth="105" />
+					<ColumnDefinition Width="1*" MinWidth="105" /> <ColumnDefinition Width="1*" MinWidth="105" />
+					<ColumnDefinition Width="1*" MinWidth="105" /> <ColumnDefinition Width="1*" MinWidth="105" />
+					<ColumnDefinition Width="1*" MinWidth="105" /> <ColumnDefinition Width="1*" MinWidth="105" />
 					<ColumnDefinition Width="1*" MinWidth="105" />
 				</Grid.ColumnDefinitions>
 				<local:Command Grid.Column="0" x:Name="C1" Title="Command 1" Margin="5" />
@@ -129,64 +157,63 @@
 			</Grid>
 			<TextBlock TextWrapping="Wrap" Text="Configurable send commands" Padding="0" FontSize="17" FontWeight="DemiBold"
 			           HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,3,10,0" />
-			<materialDesign:Card
-				Background="{DynamicResource SecondaryHueLightBrush}"
-				Foreground="{DynamicResource SecondaryHueLightForegroundBrush}" Margin="10,5,10,10">
+			<materialDesign:Card Background="{DynamicResource SecondaryHueLightBrush}"
+			                     Foreground="{DynamicResource SecondaryHueLightForegroundBrush}" Margin="10,5,10,10">
 				<Grid Margin="5">
 					<Grid.RowDefinitions>
-						<RowDefinition Height="Auto" />
-						<RowDefinition Height="Auto" />
-						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" /> <RowDefinition Height="Auto" /> <RowDefinition Height="Auto" />
 						<RowDefinition Height="Auto" />
 					</Grid.RowDefinitions>
 					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="135*" />
-						<ColumnDefinition Width="210*" />
-						<ColumnDefinition Width="210*" />
-						<ColumnDefinition Width="90*" />
-						<ColumnDefinition Width="40*" />
+						<ColumnDefinition Width="135*" /> <ColumnDefinition Width="210*" /> <ColumnDefinition Width="210*" />
+						<ColumnDefinition Width="90*" /> <ColumnDefinition Width="40*" />
 					</Grid.ColumnDefinitions>
+					<!--#region Headings -->
 					<TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" Margin="5" TextWrapping="Wrap"
 					           Text="Command Name" VerticalAlignment="Center" FontWeight="Medium" />
 					<TextBlock Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" Margin="5" TextWrapping="Wrap"
 					           Text="Command Parameter" VerticalAlignment="Center" FontWeight="Medium" />
+					<!--#endregion-->
+					<!--#region CC 1 -->
 					<TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" Margin="5" TextWrapping="Wrap"
 					           VerticalAlignment="Center" FontWeight="Medium" Text="Command 8" />
 					<TextBox Grid.Row="1" Grid.Column="1" x:Name="Cc1_CmdName" ToolTip="Command name" Margin="5" TextWrapping="Wrap"
 					         VerticalAlignment="Center" MinWidth="90" TextAlignment="Center" />
 					<TextBox Grid.Row="1" Grid.Column="2" x:Name="Cc1_CmdParam" ToolTip="Command parameter" Margin="5"
 					         TextWrapping="Wrap" VerticalAlignment="Center" MinWidth="90" TextAlignment="Center" />
-					<Button Grid.Row="1" Grid.Column="3" x:Name="Cc1_Send" materialDesign:ButtonAssist.CornerRadius="13"
-					        Content="Send" HorizontalAlignment="Center" Margin="5" VerticalAlignment="Center" Height="Auto"
-					        MinWidth="80" Width="80" />
+					<Button Grid.Row="1" Grid.Column="3" x:Name="Cc1_Send" Content="Send" HorizontalAlignment="Center" Margin="5"
+					        VerticalAlignment="Center" Height="Auto" MinWidth="80" Width="80" />
 					<TextBlock Grid.Row="1" Grid.Column="4" x:Name="Cc1_Status" HorizontalAlignment="Center" Margin="5"
 					           TextWrapping="Wrap" Text="Text" VerticalAlignment="Center" FontSize="12" />
+					<!--#endregion-->
+					<!--#region CC 2 -->
 					<TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" Margin="5" TextWrapping="Wrap"
 					           VerticalAlignment="Center" FontWeight="Medium" Text="Command 8" />
 					<TextBox Grid.Row="2" Grid.Column="1" x:Name="Cc2_CmdName" ToolTip="Command name" Margin="5" TextWrapping="Wrap"
 					         VerticalAlignment="Center" MinWidth="90" TextAlignment="Center" />
 					<TextBox Grid.Row="2" Grid.Column="2" x:Name="Cc2_CmdParam" ToolTip="Command parameter" Margin="5"
 					         TextWrapping="Wrap" VerticalAlignment="Center" MinWidth="90" TextAlignment="Center" />
-					<Button Grid.Row="2" Grid.Column="3" x:Name="Cc2_Send" materialDesign:ButtonAssist.CornerRadius="13"
-					        Content="Send" HorizontalAlignment="Center" Margin="5" VerticalAlignment="Center" Height="Auto"
-					        MinWidth="80" Width="80" />
+					<Button Grid.Row="2" Grid.Column="3" x:Name="Cc2_Send" Content="Send" HorizontalAlignment="Center" Margin="5"
+					        VerticalAlignment="Center" Height="Auto" MinWidth="80" Width="80" />
 					<TextBlock Grid.Row="2" Grid.Column="4" x:Name="Cc2_Status" HorizontalAlignment="Center" Margin="5"
 					           TextWrapping="Wrap" Text="Text" VerticalAlignment="Center" FontSize="12" />
+					<!--#endregion-->
+					<!--#region CC 3 -->
 					<TextBlock Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" Margin="5" TextWrapping="Wrap"
 					           VerticalAlignment="Center" FontWeight="Medium" Text="Command 8" />
 					<TextBox Grid.Row="3" Grid.Column="1" x:Name="Cc3_CmdName" ToolTip="Command name" Margin="5" TextWrapping="Wrap"
 					         VerticalAlignment="Center" MinWidth="90" TextAlignment="Center" />
 					<TextBox Grid.Row="3" Grid.Column="2" x:Name="Cc3_CmdParam" ToolTip="Command parameter" Margin="5"
 					         TextWrapping="Wrap" VerticalAlignment="Center" MinWidth="90" TextAlignment="Center" />
-					<Button Grid.Row="3" Grid.Column="3" x:Name="Cc3_Send" materialDesign:ButtonAssist.CornerRadius="13"
-					        Content="Send" HorizontalAlignment="Center" Margin="5" VerticalAlignment="Center" Height="Auto"
-					        MinWidth="80" Width="80" />
+					<Button Grid.Row="3" Grid.Column="3" x:Name="Cc3_Send" Content="Send" HorizontalAlignment="Center" Margin="5"
+					        VerticalAlignment="Center" Height="Auto" MinWidth="80" Width="80" />
 					<TextBlock Grid.Row="3" Grid.Column="4" x:Name="Cc3_Status" HorizontalAlignment="Center" Margin="5"
 					           TextWrapping="Wrap" Text="Text" VerticalAlignment="Center" FontSize="12" />
+					<!--#endregion-->
 				</Grid>
 			</materialDesign:Card>
 		</StackPanel>
-		<Button Grid.Row="2" x:Name="TogglePolling" materialDesign:ButtonAssist.CornerRadius="16" Content="Start polling" Margin="10" Height="Auto"
+		<Button Grid.Row="3" x:Name="TogglePolling" Content="Start polling" Margin="10" Height="Auto"
 		        HorizontalAlignment="Right" VerticalAlignment="Bottom" FontSize="18" />
 	</Grid>
 </Window>
