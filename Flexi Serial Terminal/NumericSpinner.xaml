@@ -6,6 +6,10 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:local="clr-namespace:Flexi_Serial_Terminal"
+	xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+	TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+	FontFamily="{materialDesign:MaterialDesignFont}"
+	TextElement.FontSize="14px"
 	mc:Ignorable="d">
 	<Grid>
 		<Grid.RowDefinitions>
