@@ -2,7 +2,6 @@
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 
 namespace Flexi_Serial_Terminal {
 	/// <summary>
@@ -22,6 +21,8 @@ namespace Flexi_Serial_Terminal {
 		public NumericSpinner() {
 			InitializeComponent();
 
+			PropertyChanged += (x, y) => Validate();
+
 			void PropChanged(object sender, EventArgs args) => PropertyChanged?.Invoke(sender, args);
 			void ValChanged(object  sender, EventArgs args) => ValueChanged?.Invoke(sender, args);
 
@@ -35,8 +36,6 @@ namespace Flexi_Serial_Terminal {
 										.AddValueChanged(this, PropChanged);
 			DependencyPropertyDescriptor.FromProperty(MaxValueProperty, typeof(NumericSpinner))
 										.AddValueChanged(this, PropChanged);
-
-			PropertyChanged += (x, y) => Validate();
 		}
 
 		#region ValueProperty
@@ -125,32 +124,24 @@ namespace Flexi_Serial_Terminal {
 
 		public decimal MaxValue {
 			get => (decimal) GetValue(MaxValueProperty);
-			set {
-				if (value < MinValue)
-					value = MinValue;
-				SetValue(MaxValueProperty, value);
-			}
+			set => SetValue(MaxValueProperty, value < MinValue ? MinValue: value);
 		}
 
 		#endregion
 
+		//// Logically, This is not needed at all... as it's handled within other properties...
+		//if (MinValue > MaxValue) MinValue = MaxValue;
+		//if (MaxValue < MinValue) MaxValue = MinValue;
+		//if (Value    < MinValue) Value    = MinValue;
+		//if (Value    > MaxValue) Value    = MaxValue;
+
 		/// <summary>
 		/// Revalidate the object, whenever a value is changed...
 		/// </summary>
-		private void Validate() {
-			//// Logically, This is not needed at all... as it's handled within other properties...
-			//if (MinValue > MaxValue) MinValue = MaxValue;
-			//if (MaxValue < MinValue) MaxValue = MinValue;
-			//if (Value    < MinValue) Value    = MinValue;
-			//if (Value    > MaxValue) Value    = MaxValue;
-
-			Value = decimal.Round(Value, Decimals);
-		}
+		private void Validate() => Value = decimal.Round(Value, Decimals);
 
 		private void CmdUp_Click(object sender, RoutedEventArgs e) => Value += Step;
 
 		private void CmdDown_Click(object sender, RoutedEventArgs e) => Value -= Step;
-
-		//private void Tb_main_Loaded(object sender, RoutedEventArgs e) => ValueChanged?.Invoke(this, new EventArgs());
 	}
 }

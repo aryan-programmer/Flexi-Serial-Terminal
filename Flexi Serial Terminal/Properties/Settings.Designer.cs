@@ -26,21 +26,21 @@ namespace Flexi_Serial_Terminal.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string COMPort {
+        public string ComPort {
             get {
-                return ((string)(this["COMPort"]));
+                return ((string)(this["ComPort"]));
             }
             set {
-                this["COMPort"] = value;
+                this["ComPort"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("9600")]
-        public uint BaudRate {
+        public int BaudRate {
             get {
-                return ((uint)(this["BaudRate"]));
+                return ((int)(this["BaudRate"]));
             }
             set {
                 this["BaudRate"] = value;
@@ -145,10 +145,10 @@ namespace Flexi_Serial_Terminal.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public byte IndividualPollInterval {
+        [global::System.Configuration.DefaultSettingValueAttribute("60")]
+        public ushort IndividualPollInterval {
             get {
-                return ((byte)(this["IndividualPollInterval"]));
+                return ((ushort)(this["IndividualPollInterval"]));
             }
             set {
                 this["IndividualPollInterval"] = value;

@@ -2,10 +2,10 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Flexi_Serial_Terminal.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="COMPort" Type="System.String" Scope="User">
+    <Setting Name="ComPort" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="BaudRate" Type="System.UInt32" Scope="User">
+    <Setting Name="BaudRate" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">9600</Value>
     </Setting>
     <Setting Name="P1_Enabled" Type="System.Boolean" Scope="User">
@@ -32,8 +32,8 @@
     <Setting Name="P4_Name" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="IndividualPollInterval" Type="System.Byte" Scope="User">
-      <Value Profile="(Default)">0</Value>
+    <Setting Name="IndividualPollInterval" Type="System.UInt16" Scope="User">
+      <Value Profile="(Default)">60</Value>
     </Setting>
     <Setting Name="C1_Name" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
