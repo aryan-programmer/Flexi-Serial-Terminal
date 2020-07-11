@@ -12,7 +12,7 @@ namespace Flexi_Serial_Terminal {
 			 }
 			);
 
-		public static readonly RoutedUICommand COMConnOptions = new RoutedUICommand
+		public static readonly RoutedUICommand ComConnOptions = new RoutedUICommand
 			(
 			 "COM Connection Settings",
 			 "COM Connection Settings",

@@ -20,7 +20,7 @@
 		                Executed="Connect_OnExecuted" />
 		<CommandBinding Command="local:CustomCommands.Disconnect" CanExecute="Disconnect_OnCanExecute"
 		                Executed="Disconnect_OnExecuted" />
-		<CommandBinding Command="local:CustomCommands.COMConnOptions" CanExecute="CanAlwaysExecute"
+		<CommandBinding Command="local:CustomCommands.ComConnOptions" CanExecute="CanAlwaysExecute"
 		                Executed="COMCommOptions_OnExecuted" />
 	</Window.CommandBindings>
 	<materialDesign:DialogHost x:Name="DialogHost" Identifier="DialogHost" DialogTheme="Light">
@@ -33,7 +33,7 @@
 			</Grid.RowDefinitions>
 			<Menu VerticalAlignment="Top" FontSize="18">
 				<MenuItem Header="_File" Height="Auto" Padding="10,5">
-					<MenuItem Command="local:CustomCommands.COMConnOptions" Header="COM Connection _Settings" Height="Auto"
+					<MenuItem Command="local:CustomCommands.ComConnOptions" Header="COM Connection _Settings" Height="Auto"
 					          Padding="10,5" />
 					<Separator />
 					<MenuItem Command="local:CustomCommands.Connect" Header="_Connect COM Port" Height="Auto" Padding="10,5" />
@@ -146,8 +146,7 @@
 							Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
 							ToolTip="Add Row" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="10"
 							Content="{materialDesign:PackIcon Kind=Plus, Size=24}"
-							Click="AddPollDataRow_OnClick">
-						</Button>
+							Click="AddPollDataRow_OnClick" />
 					</Grid>
 				</materialDesign:Card>
 				<materialDesign:Card Background="{DynamicResource SecondaryHueLightBrush}"
@@ -158,9 +157,11 @@
 							<ColumnDefinition Width="Auto" /> <ColumnDefinition />
 						</Grid.ColumnDefinitions>
 						<TextBlock HorizontalAlignment="Right" Margin="5" TextWrapping="Wrap" VerticalAlignment="Center"
-						           FontWeight="Medium" Text="Interval (ms) between two consecutive polls:"/>
+						           FontWeight="Medium" Text="Interval (ms) between two consecutive polls:" />
 						<local:NumericSpinner Grid.Column="1" HorizontalAlignment="Left" Margin="5"
-						                      VerticalAlignment="Center" Value="{Binding Data.IndividualPollInterval, Mode=TwoWay, Source={StaticResource MainWindowBindingProxy}}" MinValue="0" MaxValue="5000"
+						                      VerticalAlignment="Center"
+						                      Value="{Binding Data.IndividualPollInterval, Mode=TwoWay, Source={StaticResource MainWindowBindingProxy}}"
+						                      MinValue="0" MaxValue="5000"
 						                      MinWidth="75" />
 					</Grid>
 				</materialDesign:Card>
@@ -170,14 +171,13 @@
 				           HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,10,0" />
 				<Grid Margin="5" Height="165">
 					<ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Disabled">
-						<StackPanel Name="ComCommandPanel" Orientation="Horizontal" Margin="0,0,60,0"/>
+						<StackPanel Name="ComCommandPanel" Orientation="Horizontal" Margin="0,0,60,0" />
 					</ScrollViewer>
 					<Button
 						Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
 						ToolTip="Add Command" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="10"
 						Content="{materialDesign:PackIcon Kind=Plus, Size=24}"
-						Click="AddComCommandBtn_Click">
-					</Button>
+						Click="AddComCommandBtn_Click" />
 				</Grid>
 				<TextBlock TextWrapping="Wrap" Text="Configurable send commands" Padding="0" FontSize="17" FontWeight="DemiBold"
 				           HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,3,10,0" />

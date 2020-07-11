@@ -3,23 +3,23 @@ using Flexi_Serial_Terminal.Properties;
 
 namespace Flexi_Serial_Terminal {
 	public class ComConnection {
-		public static ComConnection I { get; } = new ComConnection();
-
-		static ComConnection() { }
-
-		private ComConnection() { }
 
 		private readonly object @lock = new object();
 
 		private SerialPort serial;
 
-		public event SerialDataReceivedEventHandler DataReceived;
+		static ComConnection() { }
+
+		private ComConnection() { }
+		public static ComConnection I { get; } = new ComConnection();
 
 		public bool IsConnected { get; private set; }
 
+		public event SerialDataReceivedEventHandler DataReceived;
+
 		/// <summary>
-		/// Initializes a serial connection, dropping the previous one if any,
-		/// to the RS232 Serial COM port at baud rate as specified in the application settings.
+		///     Initializes a serial connection, dropping the previous one if any,
+		///     to the RS232 Serial COM port at baud rate as specified in the application settings.
 		/// </summary>
 		public void Connect() {
 			lock (@lock) {
@@ -27,12 +27,12 @@ namespace Flexi_Serial_Terminal {
 				serial = new SerialPort(Settings.Default.ComPort, Settings.Default.BaudRate);
 				serial.Open();
 				serial.DataReceived += DataReceived;
-				IsConnected = true;
+				IsConnected         =  true;
 			}
 		}
 
 		/// <summary>
-		/// Drops the current connection to the RS232 Serial COM port, if it exists, otherwise it does nothing.
+		///     Drops the current connection to the RS232 Serial COM port, if it exists, otherwise it does nothing.
 		/// </summary>
 		public void Disconnect() {
 			lock (@lock) {

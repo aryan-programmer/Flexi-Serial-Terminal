@@ -5,15 +5,15 @@
 		ConfigurableCommand
 	}
 
-	public class SentCommandPollRequest: SentCommand {
-		public PollData PollData { get; private set; }
+	public class SentCommandPollRequest : SentCommand {
 
 		public SentCommandPollRequest(PollData pollData) : base(SentCommandType.PollRequest) => PollData = pollData;
+		public PollData PollData { get; }
 	}
 
 	public abstract class SentCommand {
-		public SentCommandType SentCommandType { get; private set; }
 
 		public SentCommand(SentCommandType sentCommandType) => SentCommandType = sentCommandType;
+		public SentCommandType SentCommandType { get; }
 	}
 }

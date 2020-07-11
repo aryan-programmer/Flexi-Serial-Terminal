@@ -43,9 +43,11 @@
 			</ComboBox.ItemTemplate>
 		</ComboBox>
 		<Grid Margin="10" VerticalAlignment="Bottom">
-			<Button Content="Save" Margin="0" Height="Auto" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="18" Click="Save_OnClick" Width="100" />
+			<Button Content="Save" Margin="0" Height="Auto" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="18"
+			        Click="Save_OnClick" Width="100" />
 			<Button Content="Cancel" Margin="0" Height="Auto" HorizontalAlignment="Right"
-		        VerticalAlignment="Top" FontSize="18" Click="Cancel_OnClick" Background="#FFFF5959" BorderBrush="#FFFD5A5A" Width="100" />
+			        VerticalAlignment="Top" FontSize="18" Click="Cancel_OnClick" Background="#FFFF5959" BorderBrush="#FFFD5A5A"
+			        Width="100" />
 		</Grid>
 	</Grid>
 </UserControl>

@@ -18,61 +18,28 @@ using MaterialDesignThemes.Wpf;
 
 namespace Flexi_Serial_Terminal {
 	/// <summary>
-	/// Interaction logic for MainWindow.xaml
+	///     Interaction logic for MainWindow.xaml
 	/// </summary>
 	public sealed partial class MainWindow : MaterialWindow, INotifyPropertyChanged {
 		public const string DialogHostId = "DialogHost";
 
 		private readonly object sentCommandLock = new object();
 
-		private SentCommand sentCommand;
-
 		private ushort individualPollInterval;
 
 		private BackgroundWorker pollingThread;
 
-		public ObservableCollection<PollData> PollDataCollection { get; set; } = new ObservableCollection<PollData>();
-
-		public bool? AreAllPolling {
-			get {
-				List<bool> selected = PollDataCollection.Select(item => item.IsPolling).Distinct().ToList();
-				return selected.Count == 1 ? selected[0] : (bool?) null;
-			}
-			set {
-				if (!value.HasValue) return;
-				var val = value.Value;
-				foreach (PollData pollData in PollDataCollection) {
-					pollData.IsPolling = val;
-				}
-
-				OnPropertyChanged();
-			}
-		}
-
-		#region Dependency Property: ushort IndividualPollInterval
-
-		public ushort IndividualPollInterval {
-			get => (ushort) GetValue(IndividualPollIntervalProperty);
-			set => SetValue(IndividualPollIntervalProperty, value);
-		}
-
-		// Using a DependencyProperty as the backing store for IndividualPollInterval.  This enables animation, styling, binding, etc...
-		public static readonly DependencyProperty IndividualPollIntervalProperty =
-			DependencyProperty.Register("IndividualPollInterval", typeof(ushort), typeof(MainWindow),
-										new PropertyMetadata((ushort) 0));
-
-		#endregion
+		private SentCommand sentCommand;
 
 		public MainWindow() {
 			if (Settings.Default.PollData != null) {
 				PollSaveDataArray pollData = Settings.Default.PollData;
-				for (var i = 0; i < pollData.Name.Length; i++) {
-					PollDataCollection.Add(new PollData() {
+				for (var i = 0; i < pollData.Name.Length; i++)
+					PollDataCollection.Add(new PollData {
 						PollCommand = pollData.PollCommand[i],
 						IsPolling   = pollData.IsPolling[i],
-						Name        = pollData.Name[i],
+						Name        = pollData.Name[i]
 					});
-				}
 			}
 
 			individualPollInterval = IndividualPollInterval = Settings.Default.IndividualPollInterval;
@@ -87,31 +54,45 @@ namespace Flexi_Serial_Terminal {
 				DependencyPropertyDescriptor.FromProperty(PollData.IsPollingProperty, typeof(PollData));
 			void PollDataIsPollingChanged(object _, EventArgs __) => OnPropertyChanged(nameof(AreAllPolling));
 
-			foreach (PollData pollData in PollDataCollection) {
+			foreach (PollData pollData in PollDataCollection)
 				isPollingPropdpDesc.AddValueChanged(pollData, PollDataIsPollingChanged);
-			}
 
 			PollDataCollection.CollectionChanged += (sender, args) => {
 				if ((args.Action == NotifyCollectionChangedAction.Remove)  ||
 					(args.Action == NotifyCollectionChangedAction.Replace) ||
-					(args.Action == NotifyCollectionChangedAction.Reset)) {
+					(args.Action == NotifyCollectionChangedAction.Reset))
 					foreach (PollData pollData in args.OldItems) {
 						isPollingPropdpDesc.RemoveValueChanged(pollData, PollDataIsPollingChanged);
 						pollData.Dispose();
 					}
-				}
 
-				if (args.NewItems != null) {
-					foreach (PollData pollData in args.NewItems) {
+				if (args.NewItems != null)
+					foreach (PollData pollData in args.NewItems)
 						isPollingPropdpDesc.AddValueChanged(pollData, PollDataIsPollingChanged);
-					}
-				}
 
 				OnPropertyChanged(nameof(AreAllPolling));
 			};
 
 			ComConnection.I.DataReceived += OnComDataReceived;
 		}
+
+		public ObservableCollection<PollData> PollDataCollection { get; set; } = new ObservableCollection<PollData>();
+
+		public bool? AreAllPolling {
+			get {
+				List<bool> selected = PollDataCollection.Select(item => item.IsPolling).Distinct().ToList();
+				return selected.Count == 1 ? selected[0] : (bool?) null;
+			}
+			set {
+				if (!value.HasValue) return;
+				var val                                                              = value.Value;
+				foreach (PollData pollData in PollDataCollection) pollData.IsPolling = val;
+
+				OnPropertyChanged();
+			}
+		}
+
+		public event PropertyChangedEventHandler PropertyChanged;
 
 		private TResult G<TResult>(Func<TResult> callback) => Dispatcher.Invoke(callback);
 
@@ -184,7 +165,7 @@ namespace Flexi_Serial_Terminal {
 				ComConnection.I.Disconnect();
 			} catch (Exception ex) {
 				Console.Write(ex);
-				await AlertDialog.ShowDialogAsync(DialogHost, new AlertDialogArguments() {
+				await AlertDialog.ShowDialogAsync(DialogHost, new AlertDialogArguments {
 					Title         = "Error!",
 					Message       = $"Error: failed to disconnect from the serial port\n{ex.Message}",
 					OkButtonLabel = "Ok"
@@ -192,7 +173,7 @@ namespace Flexi_Serial_Terminal {
 				return;
 			}
 
-			await AlertDialog.ShowDialogAsync(DialogHost, new AlertDialogArguments() {
+			await AlertDialog.ShowDialogAsync(DialogHost, new AlertDialogArguments {
 				Title         = "Success!",
 				Message       = "Successfully disconnect from the serial port",
 				OkButtonLabel = "Ok"
@@ -201,18 +182,14 @@ namespace Flexi_Serial_Terminal {
 
 		private void MainWindow_OnClosing(object sender, CancelEventArgs e) {
 			pollingThread?.CancelAsync();
-			Settings.Default.PollData = new PollSaveDataArray() {
+			Settings.Default.PollData = new PollSaveDataArray {
 				PollCommand = PollDataCollection.Select(data => data.PollCommand).ToArray(),
 				IsPolling   = PollDataCollection.Select(data => data.IsPolling).ToArray(),
-				Name        = PollDataCollection.Select(data => data.Name).ToArray(),
+				Name        = PollDataCollection.Select(data => data.Name).ToArray()
 			};
 			Settings.Default.IndividualPollInterval = IndividualPollInterval;
-			foreach (PollData pollData in PollDataCollection) {
-				pollData.Dispose();
-			}
+			foreach (PollData pollData in PollDataCollection) pollData.Dispose();
 		}
-
-		public event PropertyChangedEventHandler PropertyChanged;
 
 		[NotifyPropertyChangedInvocator]
 		private void OnPropertyChanged([CallerMemberName] string propertyName = null) =>
@@ -221,9 +198,7 @@ namespace Flexi_Serial_Terminal {
 		private void AddPollDataRow_OnClick(object sender, RoutedEventArgs e) => PollDataCollection.Add(new PollData());
 
 		private async void TogglePollingBtn_OnClick(object sender, RoutedEventArgs e) {
-			if (!ComConnection.I.IsConnected) {
-				await Connect();
-			}
+			if (!ComConnection.I.IsConnected) await Connect();
 
 			if (pollingThread == null) {
 				var pollingBw = new BackgroundWorker {
@@ -241,7 +216,6 @@ namespace Flexi_Serial_Terminal {
 		}
 
 		private void SendPollRequests(BackgroundWorker bw, DoWorkEventArgs e) {
-			Console.WriteLine("Started");
 			var currentPollDataIndex = -1;
 			while (true) {
 				if (bw.CancellationPending) {
@@ -258,9 +232,7 @@ namespace Flexi_Serial_Terminal {
 
 						if (currentPollDataIndex < PollDataCollection.Count) continue;
 						currentPollDataIndex = 0;
-						if (finishedOneRound) {
-							goto continueOuterWhile;
-						}
+						if (finishedOneRound) goto continueOuterWhile;
 
 						finishedOneRound = true;
 						// ReSharper disable once AccessToModifiedClosure
@@ -269,10 +241,7 @@ namespace Flexi_Serial_Terminal {
 
 				lock (sentCommandLock) {
 					PollData pollData = PollDataCollection[currentPollDataIndex];
-					ComConnection.I.Send(G(() => {
-						Console.WriteLine($"Sent: {pollData.PollCommand}");
-						return pollData.PollCommand;
-					}));
+					ComConnection.I.Send(G(() => pollData.PollCommand));
 					sentCommand = new SentCommandPollRequest(pollData);
 				}
 
@@ -283,7 +252,6 @@ namespace Flexi_Serial_Terminal {
 		private void OnComDataReceived(object sender, SerialDataReceivedEventArgs args) {
 			lock (sentCommandLock) {
 				var got = ComConnection.I.ReadExisting();
-				Console.WriteLine($"Got: {got}");
 				if (sentCommand == null) return;
 				switch (sentCommand) {
 				case SentCommandPollRequest pollRequest:
@@ -294,9 +262,24 @@ namespace Flexi_Serial_Terminal {
 		}
 
 		private void AddComCommandBtn_Click(object sender, RoutedEventArgs e) {
-			ComCommandPanel.Children.Add(new ComCommand() {
+			ComCommandPanel.Children.Add(new ComCommand {
 				Margin = new Thickness(5)
 			});
 		}
+
+		#region Dependency Property: ushort IndividualPollInterval
+
+		public ushort IndividualPollInterval {
+			get => (ushort) GetValue(IndividualPollIntervalProperty);
+			set => SetValue(IndividualPollIntervalProperty, value);
+		}
+
+		// Using a DependencyProperty as the backing store for IndividualPollInterval.  This enables animation, styling, binding, etc...
+		public static readonly DependencyProperty IndividualPollIntervalProperty =
+			DependencyProperty.Register("IndividualPollInterval", typeof(ushort), typeof(MainWindow),
+										new PropertyMetadata((ushort) 0));
+
+		#endregion
+
 	}
 }

@@ -5,9 +5,8 @@ using System.Windows.Controls;
 
 namespace Flexi_Serial_Terminal {
 	/// <summary>
-	/// Interaction logic for NumericSpinner.xaml
-	///
-	/// Based on https://github.com/Stopbyte/WPF-Numeric-Spinner-NumericUpDown
+	///     Interaction logic for NumericSpinner.xaml
+	///     Based on https://github.com/Stopbyte/WPF-Numeric-Spinner-NumericUpDown
 	/// </summary>
 	public partial class NumericSpinner : UserControl {
 
@@ -25,6 +24,22 @@ namespace Flexi_Serial_Terminal {
 			DependencyPropertyDescriptor.FromProperty(MaxValueProperty, typeof(NumericSpinner))
 										.AddValueChanged(this, PropChanged);
 		}
+
+		/// <summary>
+		///     Revalidate the object, whenever a value is changed...
+		/// </summary>
+		private void Validate() {
+			if (MinValue > MaxValue) MinValue = MaxValue;
+			if (MaxValue < MinValue) MaxValue = MinValue;
+			if (Value    < MinValue) Value    = MinValue;
+			if (Value    > MaxValue) Value    = MaxValue;
+
+			Value = decimal.Round(Value, Decimals);
+		}
+
+		private void CmdUp_Click(object sender, RoutedEventArgs e) => Value += Step;
+
+		private void CmdDown_Click(object sender, RoutedEventArgs e) => Value -= Step;
 
 		#region ValueProperty
 
@@ -106,20 +121,5 @@ namespace Flexi_Serial_Terminal {
 
 		#endregion
 
-		/// <summary>
-		/// Revalidate the object, whenever a value is changed...
-		/// </summary>
-		private void Validate() {
-			if (MinValue > MaxValue) MinValue = MaxValue;
-			if (MaxValue < MinValue) MaxValue = MinValue;
-			if (Value    < MinValue) Value    = MinValue;
-			if (Value    > MaxValue) Value    = MaxValue;
-
-			Value = decimal.Round(Value, Decimals);
-		}
-
-		private void CmdUp_Click(object sender, RoutedEventArgs e) => Value += Step;
-
-		private void CmdDown_Click(object sender, RoutedEventArgs e) => Value -= Step;
 	}
 }

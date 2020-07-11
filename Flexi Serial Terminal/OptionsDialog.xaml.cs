@@ -6,10 +6,16 @@ using Flexi_Serial_Terminal.Properties;
 
 namespace Flexi_Serial_Terminal {
 	/// <summary>
-	/// Interaction logic for OptionsWindow.xaml
+	///     Interaction logic for OptionsWindow.xaml
 	/// </summary>
 	public partial class OptionsDialog : UserControl {
-		public event Action<bool> Close;
+
+		public OptionsDialog() {
+			InitializeComponent();
+
+			ComPortBox.SelectedIndex  = Array.IndexOf(ComPorts,  Settings.Default.ComPort);
+			BaudRateBox.SelectedIndex = Array.IndexOf(BaudRates, Settings.Default.BaudRate);
+		}
 
 		public string[] ComPorts { get; } = SerialPort.GetPortNames();
 
@@ -25,12 +31,7 @@ namespace Flexi_Serial_Terminal {
 			256000
 		};
 
-		public OptionsDialog() {
-			InitializeComponent();
-
-			ComPortBox.SelectedIndex  = Array.IndexOf(ComPorts,  Settings.Default.ComPort);
-			BaudRateBox.SelectedIndex = Array.IndexOf(BaudRates, Settings.Default.BaudRate);
-		}
+		public event Action<bool> Close;
 
 		private void Save_OnClick(object sender, RoutedEventArgs e) {
 			var settingsSaved = false;
@@ -41,11 +42,12 @@ namespace Flexi_Serial_Terminal {
 				settingsSaved            = true;
 			}
 
-			if ((BaudRateBox.SelectedValue        != null) &&
+			if ((BaudRateBox.SelectedValue       != null) &&
 				((int) BaudRateBox.SelectedValue != Settings.Default.BaudRate)) {
 				Settings.Default.BaudRate = BaudRates[BaudRateBox.SelectedIndex];
 				settingsSaved             = true;
 			}
+
 			Close?.Invoke(settingsSaved);
 		}
 
