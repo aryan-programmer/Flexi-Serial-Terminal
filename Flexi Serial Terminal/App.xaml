@@ -4,6 +4,7 @@
              xmlns:local="clr-namespace:Flexi_Serial_Terminal"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              StartupUri="MainWindow.xaml"
+			 Startup="App_OnStartup"
              Exit="App_OnExit">
 	<Application.Resources>
 		<ResourceDictionary>

@@ -6,9 +6,14 @@
                     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                     xmlns:mde="clr-namespace:MaterialDesignExtensions.Controls;assembly=MaterialDesignExtensions"
                     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+                    DataContext="{Binding RelativeSource={RelativeSource Self}}"
                     Background="{DynamicResource MaterialDesignPaper}" FontFamily="{materialDesign:MaterialDesignFont}"
                     TextElement.FontSize="14px" x:Class="Flexi_Serial_Terminal.MainWindow" mc:Ignorable="d"
-                    Title="Flexi Serial Terminal" Height="770" Width="800" MinWidth="760" MinHeight="770">
+                    Closing="MainWindow_OnClosing"
+                    Title="Flexi Serial Terminal" Height="780" Width="800" MinWidth="760" MinHeight="780">
+	<Window.Resources>
+		<local:MainWindowBindingProxy x:Key="MainWindowBindingProxy" Data="{Binding}" />
+	</Window.Resources>
 	<Window.CommandBindings>
 		<CommandBinding Command="local:CustomCommands.Exit" CanExecute="CanAlwaysExecute" Executed="Exit_OnExecuted" />
 		<CommandBinding Command="local:CustomCommands.Connect" CanExecute="Connect_OnCanExecute"
@@ -21,16 +26,20 @@
 	<materialDesign:DialogHost x:Name="DialogHost" Identifier="DialogHost" DialogTheme="Light">
 		<Grid>
 			<Grid.RowDefinitions>
-				<RowDefinition Height="Auto" /> <RowDefinition Height="Auto" /> <RowDefinition /> <RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+				<RowDefinition />
+				<RowDefinition Height="Auto" />
 			</Grid.RowDefinitions>
 			<Menu VerticalAlignment="Top" FontSize="18">
-				<MenuItem Header="File" Height="Auto" Padding="10,5">
-					<MenuItem Command="local:CustomCommands.COMConnOptions" Height="Auto" Padding="10,5" />
+				<MenuItem Header="_File" Height="Auto" Padding="10,5">
+					<MenuItem Command="local:CustomCommands.COMConnOptions" Header="COM Connection _Settings" Height="Auto"
+					          Padding="10,5" />
 					<Separator />
-					<MenuItem Command="local:CustomCommands.Connect" Height="Auto" Padding="10,5" />
-					<MenuItem Command="local:CustomCommands.Disconnect" Height="Auto" Padding="10,5" />
+					<MenuItem Command="local:CustomCommands.Connect" Header="_Connect COM Port" Height="Auto" Padding="10,5" />
+					<MenuItem Command="local:CustomCommands.Disconnect" Header="_Disconnect COM Port" Height="Auto" Padding="10,5" />
 					<Separator />
-					<MenuItem Command="local:CustomCommands.Exit" Height="Auto" Padding="10,5" />
+					<MenuItem Command="local:CustomCommands.Exit" Header="E_xit" Height="Auto" Padding="10,5" />
 				</MenuItem>
 			</Menu>
 			<StackPanel Orientation="Vertical" Grid.Row="1" MaxWidth="980">
@@ -39,93 +48,106 @@
 				           FontSize="20" FontWeight="Bold" />
 				<materialDesign:Card Background="{DynamicResource SecondaryHueLightBrush}"
 				                     Foreground="{DynamicResource SecondaryHueLightForegroundBrush}" Margin="10,5">
-					<Grid Margin="5">
-						<Grid.RowDefinitions>
-							<RowDefinition Height="Auto" /> <RowDefinition Height="Auto" /> <RowDefinition Height="Auto" />
-							<RowDefinition Height="Auto" /> <RowDefinition Height="Auto" />
-						</Grid.RowDefinitions>
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="Auto" /> <ColumnDefinition Width="Auto" />
-							<ColumnDefinition Width="Auto" MinWidth="75" /> <ColumnDefinition Width="Auto" /> <ColumnDefinition />
-						</Grid.ColumnDefinitions>
-						<!--#region Headings -->
-						<TextBlock Grid.Row="0" Grid.Column="0" Text="Enabled" HorizontalAlignment="Center" Margin="5,7.137"
-						           VerticalAlignment="Center" FontWeight="Medium" />
-						<TextBlock Grid.Row="0" Grid.Column="1" Text="Polling Command" HorizontalAlignment="Center" Margin="5,7.137"
-						           VerticalAlignment="Center" FontWeight="Medium" />
-						<TextBlock Grid.Row="0" Grid.Column="2" Text="Value" HorizontalAlignment="Center" Margin="4.999,7.137,5,7.137"
-						           VerticalAlignment="Center" FontWeight="Medium" />
-						<TextBlock Grid.Row="0" Grid.Column="4" Text="Save file (CSV)" HorizontalAlignment="Left" Margin="5"
-						           VerticalAlignment="Center" FontWeight="Medium" />
-						<!--#endregion-->
-						<!--#region Poll Value 1 -->
-						<ToggleButton Grid.Row="1" Grid.Column="0" x:Name="P1_Enabled" HorizontalAlignment="Center" Margin="5"
-						              VerticalAlignment="Center" Style="{StaticResource MaterialDesignSwitchDarkToggleButton}"
-						              IsChecked="False">
-							<materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
-								<SolidColorBrush Color="DarkGreen" />
-							</materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
-						</ToggleButton>
-						<TextBox Grid.Row="1" Grid.Column="1" x:Name="P1_Command" ToolTip="Polling Command" Margin="5"
-						         TextWrapping="Wrap"
-						         VerticalAlignment="Center" TextAlignment="Center" />
-						<TextBlock Grid.Row="1" Grid.Column="2" x:Name="P1_Value" HorizontalAlignment="Center" Margin="5.329,5,5.33,5"
-						           VerticalAlignment="Center" Text="Label" />
-						<Button Grid.Row="1" Grid.Column="3" x:Name="P1_BrowseFile" Content="Browse file" HorizontalAlignment="Right"
-						        Margin="5" VerticalAlignment="Center" Height="Auto" />
-						<TextBlock Grid.Row="1" Grid.Column="4" x:Name="P1_File" Text="Label" Margin="5" VerticalAlignment="Center" />
-						<!--#endregion-->
-						<!--#region Poll Value 2 -->
-						<ToggleButton Grid.Row="2" Grid.Column="0" x:Name="P2_Enabled" HorizontalAlignment="Center" Margin="5"
-						              VerticalAlignment="Center" Style="{StaticResource MaterialDesignSwitchDarkToggleButton}"
-						              IsChecked="False">
-							<materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
-								<SolidColorBrush Color="DarkGreen" />
-							</materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
-						</ToggleButton>
-						<TextBox Grid.Row="2" Grid.Column="1" x:Name="P2_Command" ToolTip="Polling Command" Margin="5"
-						         TextWrapping="Wrap"
-						         VerticalAlignment="Center" TextAlignment="Center" />
-						<TextBlock Grid.Row="2" Grid.Column="2" x:Name="P2_Value" HorizontalAlignment="Center" Margin="5.329,5,5.33,5"
-						           VerticalAlignment="Center" Text="Label" />
-						<Button Grid.Row="2" Grid.Column="3" x:Name="P2_BrowseFile" Content="Browse file" HorizontalAlignment="Right"
-						        Margin="5" VerticalAlignment="Center" Height="Auto" />
-						<TextBlock Grid.Row="2" Grid.Column="4" x:Name="P2_File" Text="Label" Margin="5" VerticalAlignment="Center" />
-						<!--#endregion-->
-						<!--#region Poll Value 3 -->
-						<ToggleButton Grid.Row="3" Grid.Column="0" x:Name="P3_Enabled" HorizontalAlignment="Center" Margin="5"
-						              VerticalAlignment="Center" Style="{StaticResource MaterialDesignSwitchDarkToggleButton}"
-						              IsChecked="False">
-							<materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
-								<SolidColorBrush Color="DarkGreen" />
-							</materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
-						</ToggleButton>
-						<TextBox Grid.Row="3" Grid.Column="1" x:Name="P3_Command" ToolTip="Polling Command" Margin="5"
-						         TextWrapping="Wrap"
-						         VerticalAlignment="Center" TextAlignment="Center" />
-						<TextBlock Grid.Row="3" Grid.Column="2" x:Name="P3_Value" HorizontalAlignment="Center" Margin="5.329,5,5.33,5"
-						           VerticalAlignment="Center" Text="Label" />
-						<Button Grid.Row="3" Grid.Column="3" x:Name="P3_BrowseFile" Content="Browse file" HorizontalAlignment="Right"
-						        Margin="5" VerticalAlignment="Center" Height="Auto" />
-						<TextBlock Grid.Row="3" Grid.Column="4" x:Name="P3_File" Text="Label" Margin="5" VerticalAlignment="Center" />
-						<!--#endregion-->
-						<!--#region Poll Value 4 -->
-						<ToggleButton Grid.Row="4" Grid.Column="0" x:Name="P4_Enabled" HorizontalAlignment="Center" Margin="5"
-						              VerticalAlignment="Center" Style="{StaticResource MaterialDesignSwitchDarkToggleButton}"
-						              IsChecked="False">
-							<materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
-								<SolidColorBrush Color="DarkGreen" />
-							</materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
-						</ToggleButton>
-						<TextBox Grid.Row="4" Grid.Column="1" x:Name="P4_Command" ToolTip="Polling Command" Margin="5"
-						         TextWrapping="Wrap"
-						         VerticalAlignment="Center" TextAlignment="Center" />
-						<TextBlock Grid.Row="4" Grid.Column="2" x:Name="P4_Value" HorizontalAlignment="Center" Margin="5.329,5,5.33,5"
-						           VerticalAlignment="Center" Text="Label" />
-						<Button Grid.Row="4" Grid.Column="3" x:Name="P4_BrowseFile" Content="Browse file" HorizontalAlignment="Right"
-						        Margin="5" VerticalAlignment="Center" Height="Auto" />
-						<TextBlock Grid.Row="4" Grid.Column="4" x:Name="P4_File" Text="Label" Margin="5" VerticalAlignment="Center" />
-						<!--#endregion-->
+					<Grid>
+						<DataGrid
+							ItemsSource="{Binding PollDataCollection}"
+							CanUserAddRows="False"
+							CanUserDeleteRows="True"
+							CanUserReorderColumns="True"
+							CanUserResizeRows="True"
+							CanUserResizeColumns="True"
+							CanUserSortColumns="True"
+							AutoGenerateColumns="False"
+							BorderThickness="0"
+							materialDesign:DataGridAssist.CellPadding="4"
+							materialDesign:DataGridAssist.ColumnHeaderPadding="4"
+							HeadersVisibility="Column" Foreground="Black" Background="{x:Null}"
+							VerticalScrollBarVisibility="Visible" BorderBrush="{x:Null}" Height="175">
+							<DataGrid.Columns>
+								<DataGridCheckBoxColumn
+									CanUserReorder="False"
+									CanUserSort="False"
+									CanUserResize="False"
+									Binding="{Binding IsPolling, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+									ElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnStyle}"
+									EditingElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnEditingStyle}">
+									<DataGridCheckBoxColumn.Header>
+										<Border
+											Background="Transparent"
+											Padding="6 0 6 0"
+											HorizontalAlignment="Center">
+											<CheckBox
+												ToolTip="Is enabled?"
+												HorizontalAlignment="Center"
+												VerticalAlignment="Center"
+												IsChecked="{Binding Data.AreAllPolling, Source={StaticResource MainWindowBindingProxy}, Mode=TwoWay}" />
+										</Border>
+									</DataGridCheckBoxColumn.Header>
+								</DataGridCheckBoxColumn>
+								<DataGridTextColumn
+									Header="Name"
+									Binding="{Binding Path=Name, Mode=TwoWay}">
+									<DataGridTextColumn.ElementStyle>
+										<Style TargetType="TextBlock" BasedOn="{StaticResource MaterialDesignDataGridTextColumnStyle}">
+											<Setter Property="HorizontalAlignment" Value="Center" />
+											<Setter Property="VerticalAlignment" Value="Center" />
+										</Style>
+									</DataGridTextColumn.ElementStyle>
+									<DataGridTextColumn.EditingElementStyle>
+										<Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}">
+											<Setter Property="HorizontalAlignment" Value="Center" />
+											<Setter Property="VerticalAlignment" Value="Center" />
+										</Style>
+									</DataGridTextColumn.EditingElementStyle>
+								</DataGridTextColumn>
+								<DataGridTextColumn
+									Header="Command"
+									Binding="{Binding Path=PollCommand, Mode=TwoWay}">
+									<DataGridTextColumn.ElementStyle>
+										<Style TargetType="TextBlock" BasedOn="{StaticResource MaterialDesignDataGridTextColumnStyle}">
+											<Setter Property="HorizontalAlignment" Value="Center" />
+											<Setter Property="VerticalAlignment" Value="Center" />
+										</Style>
+									</DataGridTextColumn.ElementStyle>
+									<DataGridTextColumn.EditingElementStyle>
+										<Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}">
+											<Setter Property="HorizontalAlignment" Value="Center" />
+											<Setter Property="VerticalAlignment" Value="Center" />
+										</Style>
+									</DataGridTextColumn.EditingElementStyle>
+								</DataGridTextColumn>
+								<DataGridTextColumn
+									IsReadOnly="True"
+									Header="Value"
+									Binding="{Binding Path=Value, Mode=OneWay}">
+									<DataGridTextColumn.ElementStyle>
+										<Style TargetType="TextBlock" BasedOn="{StaticResource MaterialDesignDataGridTextColumnStyle}">
+											<Setter Property="HorizontalAlignment" Value="Center" />
+											<Setter Property="VerticalAlignment" Value="Center" />
+										</Style>
+									</DataGridTextColumn.ElementStyle>
+								</DataGridTextColumn>
+								<DataGridTemplateColumn
+									IsReadOnly="True"
+									Header="Save file">
+									<DataGridTemplateColumn.CellTemplate>
+										<DataTemplate>
+											<StackPanel Orientation="Horizontal">
+												<Button Content="Browse file" HorizontalAlignment="Right" VerticalAlignment="Center" Height="Auto"
+												        Command="{Binding Path=(local:PollData.ChooseSaveFileCommand)}" Margin="5,0,0,0" />
+												<TextBlock Text="{Binding Path=(local:PollData.SaveFilePath)}" VerticalAlignment="Center" />
+											</StackPanel>
+										</DataTemplate>
+									</DataGridTemplateColumn.CellTemplate>
+								</DataGridTemplateColumn>
+							</DataGrid.Columns>
+						</DataGrid>
+						<Button
+							Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+							ToolTip="Add Row" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="10"
+							Content="{materialDesign:PackIcon Kind=Plus, Size=24}"
+							Click="AddPollDataRow_OnClick">
+						</Button>
 					</Grid>
 				</materialDesign:Card>
 				<materialDesign:Card Background="{DynamicResource SecondaryHueLightBrush}"
@@ -136,11 +158,9 @@
 							<ColumnDefinition Width="Auto" /> <ColumnDefinition />
 						</Grid.ColumnDefinitions>
 						<TextBlock HorizontalAlignment="Right" Margin="5" TextWrapping="Wrap" VerticalAlignment="Center"
-						           FontWeight="Medium">
-							<Run Text="Individual p" /><Run Text="oll" /><Run Text=" interval" /><Run Text=" (ms):" />
-						</TextBlock>
-						<local:NumericSpinner Grid.Column="1" x:Name="PollingTimeout" HorizontalAlignment="Left" Margin="5"
-						                      VerticalAlignment="Center" Value="60" Decimals="0" MinValue="0" MaxValue="5000"
+						           FontWeight="Medium" Text="Interval (ms) between two consecutive polls:"/>
+						<local:NumericSpinner Grid.Column="1" HorizontalAlignment="Left" Margin="5"
+						                      VerticalAlignment="Center" Value="{Binding Data.IndividualPollInterval, Mode=TwoWay, Source={StaticResource MainWindowBindingProxy}}" MinValue="0" MaxValue="5000"
 						                      MinWidth="75" />
 					</Grid>
 				</materialDesign:Card>
@@ -148,20 +168,16 @@
 			<StackPanel Grid.Row="2" VerticalAlignment="Center" MaxWidth="820">
 				<TextBlock TextWrapping="Wrap" Text="Send commands" Padding="0" FontSize="20" FontWeight="Bold"
 				           HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,10,0" />
-				<Grid Margin="5">
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="1*" MinWidth="105" /> <ColumnDefinition Width="1*" MinWidth="105" />
-						<ColumnDefinition Width="1*" MinWidth="105" /> <ColumnDefinition Width="1*" MinWidth="105" />
-						<ColumnDefinition Width="1*" MinWidth="105" /> <ColumnDefinition Width="1*" MinWidth="105" />
-						<ColumnDefinition Width="1*" MinWidth="105" />
-					</Grid.ColumnDefinitions>
-					<local:Command Grid.Column="0" x:Name="C1" Title="Command 1" Margin="5" />
-					<local:Command Grid.Column="1" x:Name="C2" Title="Command 2" Margin="5" />
-					<local:Command Grid.Column="2" x:Name="C3" Title="Command 3" Margin="5" />
-					<local:Command Grid.Column="3" x:Name="C4" Title="Command 4" Margin="5" />
-					<local:Command Grid.Column="4" x:Name="C5" Title="Command 5" Margin="5" />
-					<local:Command Grid.Column="5" x:Name="C6" Title="Command 6" Margin="5" />
-					<local:Command Grid.Column="6" x:Name="C7" Title="Command 7" Margin="5" />
+				<Grid Margin="5" Height="165">
+					<ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Disabled">
+						<StackPanel Name="ComCommandPanel" Orientation="Horizontal" Margin="0,0,60,0"/>
+					</ScrollViewer>
+					<Button
+						Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+						ToolTip="Add Command" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="10"
+						Content="{materialDesign:PackIcon Kind=Plus, Size=24}"
+						Click="AddComCommandBtn_Click">
+					</Button>
 				</Grid>
 				<TextBlock TextWrapping="Wrap" Text="Configurable send commands" Padding="0" FontSize="17" FontWeight="DemiBold"
 				           HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,3,10,0" />
@@ -226,8 +242,8 @@
 					</Grid>
 				</materialDesign:Card>
 			</StackPanel>
-			<Button Grid.Row="3" x:Name="TogglePolling" Content="Start polling" Margin="10" Height="Auto"
-			        HorizontalAlignment="Right" VerticalAlignment="Bottom" FontSize="18" />
+			<Button Grid.Row="3" x:Name="TogglePollingBtn" Content="Start polling" Margin="10" Height="Auto"
+			        HorizontalAlignment="Right" VerticalAlignment="Bottom" FontSize="18" Click="TogglePollingBtn_OnClick" />
 		</Grid>
 	</materialDesign:DialogHost>
 </mde:MaterialWindow>

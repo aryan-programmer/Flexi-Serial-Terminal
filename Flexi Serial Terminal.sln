@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flexi Serial Terminal", "Flexi Serial Terminal\Flexi Serial Terminal.csproj", "{5215C126-05AB-4DA3-B4C0-10DC74748AC9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlexiSerialTerminalSettingsClasses", "FlexiSerialTerminalSettingsClasses\FlexiSerialTerminalSettingsClasses.csproj", "{1796104E-C3B1-4F46-8698-1B3D5BF257EC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{5215C126-05AB-4DA3-B4C0-10DC74748AC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5215C126-05AB-4DA3-B4C0-10DC74748AC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5215C126-05AB-4DA3-B4C0-10DC74748AC9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1796104E-C3B1-4F46-8698-1B3D5BF257EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1796104E-C3B1-4F46-8698-1B3D5BF257EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1796104E-C3B1-4F46-8698-1B3D5BF257EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1796104E-C3B1-4F46-8698-1B3D5BF257EC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

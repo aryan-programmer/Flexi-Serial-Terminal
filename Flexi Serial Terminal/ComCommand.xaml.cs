@@ -6,10 +6,10 @@ namespace Flexi_Serial_Terminal {
 	/// <summary>
 	/// Interaction logic for Command.xaml
 	/// </summary>
-	public partial class Command : UserControl {
+	public partial class ComCommand : UserControl {
 		public event Action Send;
 
-		public Command() {
+		public ComCommand() {
 			InitializeComponent();
 		}
 
@@ -20,7 +20,7 @@ namespace Flexi_Serial_Terminal {
 		}
 
 		public static readonly DependencyProperty TitleProperty =
-			DependencyProperty.Register("Title", typeof(string), typeof(Command), new PropertyMetadata(""));
+			DependencyProperty.Register("Title", typeof(string), typeof(ComCommand), new PropertyMetadata(""));
 
 
 		public string CommandName {
@@ -29,7 +29,7 @@ namespace Flexi_Serial_Terminal {
 		}
 
 		public static readonly DependencyProperty CommandNameProperty =
-			DependencyProperty.Register("CommandName", typeof(string), typeof(Command), new PropertyMetadata(""));
+			DependencyProperty.Register("CommandName", typeof(string), typeof(ComCommand), new PropertyMetadata(""));
 
 
 		public string CommandStatus {
@@ -38,7 +38,7 @@ namespace Flexi_Serial_Terminal {
 		}
 
 		public static readonly DependencyProperty CommandStatusProperty =
-			DependencyProperty.Register("CommandStatus", typeof(string), typeof(Command), new PropertyMetadata(""));
+			DependencyProperty.Register("CommandStatus", typeof(string), typeof(ComCommand), new PropertyMetadata(""));
 
 
 		private void SendBtn_OnClick(object sender, RoutedEventArgs e) => Send?.Invoke();

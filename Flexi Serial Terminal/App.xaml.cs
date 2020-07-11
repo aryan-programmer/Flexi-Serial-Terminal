@@ -1,6 +1,6 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using Flexi_Serial_Terminal.Properties;
+using FlexiSerialTerminalSettingsClasses;
 
 namespace Flexi_Serial_Terminal {
 	/// <summary>
@@ -8,5 +8,11 @@ namespace Flexi_Serial_Terminal {
 	/// </summary>
 	public partial class App : Application {
 		private void App_OnExit(object sender, ExitEventArgs e) => Settings.Default.Save();
+
+		private void App_OnStartup(object sender, StartupEventArgs e) {
+/*			if (Settings.Default.PollData == null) {
+				Settings.Default.PollData = new PollSaveData[] { };
+			}*/
+		}
 	}
 }

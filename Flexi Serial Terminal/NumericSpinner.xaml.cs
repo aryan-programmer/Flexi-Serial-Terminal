@@ -11,25 +11,13 @@ namespace Flexi_Serial_Terminal {
 	/// </summary>
 	public partial class NumericSpinner : UserControl {
 
-		#region Fields
-
-		public event EventHandler PropertyChanged;
-		public event EventHandler ValueChanged;
-
-		#endregion
-
 		public NumericSpinner() {
 			InitializeComponent();
 
-			PropertyChanged += (x, y) => Validate();
-
-			void PropChanged(object sender, EventArgs args) => PropertyChanged?.Invoke(sender, args);
-			void ValChanged(object  sender, EventArgs args) => ValueChanged?.Invoke(sender, args);
+			void PropChanged(object sender, EventArgs args) => Validate();
 
 			DependencyPropertyDescriptor.FromProperty(ValueProperty, typeof(NumericSpinner))
 										.AddValueChanged(this, PropChanged);
-			DependencyPropertyDescriptor.FromProperty(ValueProperty, typeof(NumericSpinner))
-										.AddValueChanged(this, ValChanged);
 			DependencyPropertyDescriptor.FromProperty(DecimalsProperty, typeof(NumericSpinner))
 										.AddValueChanged(this, PropChanged);
 			DependencyPropertyDescriptor.FromProperty(MinValueProperty, typeof(NumericSpinner))
@@ -49,14 +37,7 @@ namespace Flexi_Serial_Terminal {
 
 		public decimal Value {
 			get => (decimal) GetValue(ValueProperty);
-			set {
-				if (value < MinValue)
-					value = MinValue;
-				if (value > MaxValue)
-					value = MaxValue;
-				SetValue(ValueProperty, value);
-				ValueChanged?.Invoke(this, new EventArgs());
-			}
+			set => SetValue(ValueProperty, value);
 		}
 
 		#endregion
@@ -104,11 +85,7 @@ namespace Flexi_Serial_Terminal {
 
 		public decimal MinValue {
 			get => (decimal) GetValue(MinValueProperty);
-			set {
-				if (value > MaxValue)
-					MaxValue = value;
-				SetValue(MinValueProperty, value);
-			}
+			set => SetValue(MinValueProperty, value);
 		}
 
 		#endregion
@@ -124,21 +101,22 @@ namespace Flexi_Serial_Terminal {
 
 		public decimal MaxValue {
 			get => (decimal) GetValue(MaxValueProperty);
-			set => SetValue(MaxValueProperty, value < MinValue ? MinValue: value);
+			set => SetValue(MaxValueProperty, value < MinValue ? MinValue : value);
 		}
 
 		#endregion
 
-		//// Logically, This is not needed at all... as it's handled within other properties...
-		//if (MinValue > MaxValue) MinValue = MaxValue;
-		//if (MaxValue < MinValue) MaxValue = MinValue;
-		//if (Value    < MinValue) Value    = MinValue;
-		//if (Value    > MaxValue) Value    = MaxValue;
-
 		/// <summary>
 		/// Revalidate the object, whenever a value is changed...
 		/// </summary>
-		private void Validate() => Value = decimal.Round(Value, Decimals);
+		private void Validate() {
+			if (MinValue > MaxValue) MinValue = MaxValue;
+			if (MaxValue < MinValue) MaxValue = MinValue;
+			if (Value    < MinValue) Value    = MinValue;
+			if (Value    > MaxValue) Value    = MaxValue;
+
+			Value = decimal.Round(Value, Decimals);
+		}
 
 		private void CmdUp_Click(object sender, RoutedEventArgs e) => Value += Step;
 

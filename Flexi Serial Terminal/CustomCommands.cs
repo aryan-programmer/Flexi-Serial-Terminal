@@ -21,15 +21,15 @@ namespace Flexi_Serial_Terminal {
 
 		public static readonly RoutedUICommand Connect = new RoutedUICommand
 			(
-			 "Connect",
-			 "Connect",
+			 "Connect COM Port",
+			 "Connect COM Port",
 			 typeof(CustomCommands),
 			 new InputGestureCollection());
 
 		public static readonly RoutedUICommand Disconnect = new RoutedUICommand
 			(
-			 "Disconnect",
-			 "Disconnect",
+			 "Disconnect COM Port",
+			 "Disconnect COM Port",
 			 typeof(CustomCommands),
 			 new InputGestureCollection());
 	}
