@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 
 namespace Flexi_Serial_Terminal {
@@ -16,6 +15,14 @@ namespace Flexi_Serial_Terminal {
 
 		public static readonly DependencyProperty CommandStatusProperty =
 			DependencyProperty.Register("CommandStatus", typeof(string), typeof(ComCommand), new PropertyMetadata(""));
+
+		public static readonly RoutedEvent SendEvent =
+			EventManager.RegisterRoutedEvent("Send", RoutingStrategy.Bubble, typeof(RoutedEventHandler),
+											 typeof(ComCommand));
+
+		public static readonly RoutedEvent CloseEvent =
+			EventManager.RegisterRoutedEvent("Close", RoutingStrategy.Bubble, typeof(RoutedEventHandler),
+											 typeof(ComCommand));
 
 		public ComCommand() {
 			InitializeComponent();
@@ -38,18 +45,10 @@ namespace Flexi_Serial_Terminal {
 			set => SetValue(CommandStatusProperty, value);
 		}
 
-		public static readonly RoutedEvent SendEvent =
-			EventManager.RegisterRoutedEvent("Send", RoutingStrategy.Bubble, typeof(RoutedEventHandler),
-											 typeof(ComCommand));
-
 		public event RoutedEventHandler Send {
 			add => AddHandler(SendEvent, value);
 			remove => RemoveHandler(SendEvent, value);
 		}
-
-		public static readonly RoutedEvent CloseEvent =
-			EventManager.RegisterRoutedEvent("Close", RoutingStrategy.Bubble, typeof(RoutedEventHandler),
-											 typeof(ComCommand));
 
 		public event RoutedEventHandler Close {
 			add => AddHandler(CloseEvent, value);

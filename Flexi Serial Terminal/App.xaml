@@ -10,15 +10,16 @@
 			<ResourceDictionary.MergedDictionaries>
 				<ResourceDictionary>
 					<ResourceDictionary.MergedDictionaries>
-						<ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/materialdesigncolor.grey.primary.xaml" />
+						<ResourceDictionary
+							Source="pack://application:,,,/MaterialDesignColors;component/Themes/materialdesigncolor.grey.primary.xaml" />
 					</ResourceDictionary.MergedDictionaries>
 
-					<SolidColorBrush x:Key="TertiaryHueLightBrush" Color="{StaticResource Primary200}"/>
-					<SolidColorBrush x:Key="TertiaryHueLightForegroundBrush" Color="{StaticResource Primary200Foreground}"/>
-					<SolidColorBrush x:Key="TertiaryHueMidBrush" Color="{StaticResource Primary500}"/>
-					<SolidColorBrush x:Key="TertiaryHueMidForegroundBrush" Color="{StaticResource Primary500Foreground}"/>
-					<SolidColorBrush x:Key="TertiaryHueDarkBrush" Color="{StaticResource Primary800}"/>
-					<SolidColorBrush x:Key="TertiaryHueDarkForegroundBrush" Color="{StaticResource Primary800Foreground}"/>
+					<SolidColorBrush x:Key="TertiaryHueLightBrush" Color="{StaticResource Primary200}" />
+					<SolidColorBrush x:Key="TertiaryHueLightForegroundBrush" Color="{StaticResource Primary200Foreground}" />
+					<SolidColorBrush x:Key="TertiaryHueMidBrush" Color="{StaticResource Primary500}" />
+					<SolidColorBrush x:Key="TertiaryHueMidForegroundBrush" Color="{StaticResource Primary500Foreground}" />
+					<SolidColorBrush x:Key="TertiaryHueDarkBrush" Color="{StaticResource Primary800}" />
+					<SolidColorBrush x:Key="TertiaryHueDarkForegroundBrush" Color="{StaticResource Primary800Foreground}" />
 				</ResourceDictionary>
 				<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/Generic.xaml" />
 				<ResourceDictionary

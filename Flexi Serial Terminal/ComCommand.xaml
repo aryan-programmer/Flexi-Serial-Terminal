@@ -17,9 +17,11 @@
 				         Margin="5,0,5,7" />
 				<Button Content="Send" Margin="5,0,5,7" Click="SendBtn_OnClick" Height="Auto" Width="80"
 				        HorizontalAlignment="Center" />
-				<TextBlock TextWrapping="Wrap" Text="{Binding CommandStatus, Mode=TwoWay}" TextAlignment="Center" Margin="5,0,5,7" FontSize="12" />
+				<TextBlock TextWrapping="Wrap" Text="{Binding CommandStatus, Mode=TwoWay}" TextAlignment="Center" Margin="5,0,5,7"
+				           FontSize="12" />
 			</StackPanel>
 		</materialDesign:Card>
-		<Button HorizontalAlignment="Right" Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" VerticalAlignment="Top" Content="×" Width="26" Height="26" Margin="4" FontSize="20" Click="Close_OnClick"/>
+		<Button HorizontalAlignment="Right" Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+		        VerticalAlignment="Top" Content="×" Width="26" Height="26" Margin="4" FontSize="20" Click="Close_OnClick" />
 	</Grid>
 </UserControl>

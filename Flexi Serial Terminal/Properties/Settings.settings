@@ -1,21 +1,23 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Flexi_Serial_Terminal.Properties" GeneratedClassName="Settings">
-  <Profiles />
-  <Settings>
-    <Setting Name="ComPort" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="BaudRate" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">9600</Value>
-    </Setting>
-    <Setting Name="IndividualPollInterval" Type="System.UInt16" Scope="User">
-      <Value Profile="(Default)">60</Value>
-    </Setting>
-    <Setting Name="PollData" Type="FlexiSerialTerminalSettingsClasses.PollSaveDataParallelArrays" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="ComCommands" Type="FlexiSerialTerminalSettingsClasses.ComCommandSaveDataParallelArrays" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-  </Settings>
+
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)"
+              GeneratedClassNamespace="Flexi_Serial_Terminal.Properties" GeneratedClassName="Settings">
+	<Profiles />
+	<Settings>
+		<Setting Name="ComPort" Type="System.String" Scope="User">
+			<Value Profile="(Default)" />
+		</Setting>
+		<Setting Name="BaudRate" Type="System.Int32" Scope="User">
+			<Value Profile="(Default)">9600</Value>
+		</Setting>
+		<Setting Name="IndividualPollInterval" Type="System.UInt16" Scope="User">
+			<Value Profile="(Default)">60</Value>
+		</Setting>
+		<Setting Name="PollData" Type="FlexiSerialTerminalSettingsClasses.PollSaveDataParallelArrays" Scope="User">
+			<Value Profile="(Default)" />
+		</Setting>
+		<Setting Name="ComCommands" Type="FlexiSerialTerminalSettingsClasses.ComCommandSaveDataParallelArrays" Scope="User">
+			<Value Profile="(Default)" />
+		</Setting>
+	</Settings>
 </SettingsFile>

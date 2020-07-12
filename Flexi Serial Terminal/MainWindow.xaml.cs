@@ -31,13 +31,12 @@ namespace Flexi_Serial_Terminal {
 
 		public MainWindow() {
 			PollSaveDataParallelArrays pollDataPArray = Settings.Default.PollData;
-			for (var i = 0; i < pollDataPArray.Name.Length; i++) {
+			for (var i = 0; i < pollDataPArray.Name.Length; i++)
 				PollDataCollection.Add(new PollData {
 					PollCommand = pollDataPArray.PollCommand[i],
 					IsPolling   = pollDataPArray.IsPolling[i],
 					Name        = pollDataPArray.Name[i]
 				});
-			}
 
 			individualPollInterval = IndividualPollInterval = Settings.Default.IndividualPollInterval;
 			DependencyPropertyDescriptor.FromProperty(IndividualPollIntervalProperty, typeof(MainWindow))
@@ -48,12 +47,11 @@ namespace Flexi_Serial_Terminal {
 			InitializeComponent();
 
 			ComCommandSaveDataParallelArrays cmdSavePArray = Settings.Default.ComCommands;
-			for (var i = 0; i < cmdSavePArray.Title.Length; i++) {
-				ComCommandsPanel.Children.Add(InitComCommand(new ComCommand() {
+			for (var i = 0; i < cmdSavePArray.Title.Length; i++)
+				ComCommandsPanel.Children.Add(InitComCommand(new ComCommand {
 					Title   = cmdSavePArray.Title[i],
-					Command = cmdSavePArray.Command[i],
+					Command = cmdSavePArray.Command[i]
 				}));
-			}
 
 
 			DependencyPropertyDescriptor isPollingPropdpDesc =
@@ -196,7 +194,7 @@ namespace Flexi_Serial_Terminal {
 			ComCommand[] comCommands = ComCommandsPanel.Children.OfType<ComCommand>().ToArray();
 			Settings.Default.ComCommands = new ComCommandSaveDataParallelArrays {
 				Command = comCommands.Select(command => command.Command).ToArray(),
-				Title   = comCommands.Select(command => command.Title).ToArray(),
+				Title   = comCommands.Select(command => command.Title).ToArray()
 			};
 			Settings.Default.IndividualPollInterval = IndividualPollInterval;
 			foreach (PollData pollData in PollDataCollection) pollData.Dispose();
@@ -323,6 +321,12 @@ namespace Flexi_Serial_Terminal {
 		private void ComCommand_OnClose(object sender, RoutedEventArgs e) =>
 			ComCommandsPanel.Children.Remove(sender as UIElement);
 
+		private async void About_OnExecuted(object sender, ExecutedRoutedEventArgs e) {
+			var aboutDialog = new AboutDialog();
+			aboutDialog.Close += () => DialogHost.CloseDialogCommand.Execute(null, DialogHost);
+			await DialogHost.ShowDialog(aboutDialog);
+		}
+
 		#region Dependency Property: ushort IndividualPollInterval
 
 		public ushort IndividualPollInterval {
@@ -337,10 +341,5 @@ namespace Flexi_Serial_Terminal {
 
 		#endregion
 
-		private async void About_OnExecuted(object sender, ExecutedRoutedEventArgs e) {
-			var aboutDialog = new AboutDialog();
-			aboutDialog.Close += () => DialogHost.CloseDialogCommand.Execute(null, DialogHost);
-			await DialogHost.ShowDialog(aboutDialog);
-		}
 	}
 }
