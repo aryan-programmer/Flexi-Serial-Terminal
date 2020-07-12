@@ -61,12 +61,23 @@ namespace Flexi_Serial_Terminal.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::FlexiSerialTerminalSettingsClasses.PollSaveDataArray PollData {
+        public global::FlexiSerialTerminalSettingsClasses.PollSaveDataParallelArrays PollData {
             get {
-                return ((global::FlexiSerialTerminalSettingsClasses.PollSaveDataArray)(this["PollData"]));
+                return ((global::FlexiSerialTerminalSettingsClasses.PollSaveDataParallelArrays)(this["PollData"]));
             }
             set {
                 this["PollData"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::FlexiSerialTerminalSettingsClasses.ComCommandSaveDataParallelArrays ComCommands {
+            get {
+                return ((global::FlexiSerialTerminalSettingsClasses.ComCommandSaveDataParallelArrays)(this["ComCommands"]));
+            }
+            set {
+                this["ComCommands"] = value;
             }
         }
     }

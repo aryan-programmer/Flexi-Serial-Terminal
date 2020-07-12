@@ -6,17 +6,20 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              FontFamily="{materialDesign:MaterialDesignFont}" TextElement.FontSize="14px" mc:Ignorable="d"
-             d:DesignWidth="110" d:DesignHeight="135" MinWidth="110" MinHeight="135">
-	<materialDesign:Card Background="{DynamicResource SecondaryHueLightBrush}"
-	                     Foreground="{DynamicResource SecondaryHueLightForegroundBrush}">
-		<StackPanel Margin="5">
-			<TextBox Text="{Binding Title, Mode=TwoWay}" FontWeight="Medium" ToolTip="Command name"
-			         Margin="5,6,5,7" TextAlignment="Center" />
-			<TextBox Text="{Binding CommandName, Mode=TwoWay}" TextAlignment="Center" ToolTip="Command"
-			         Margin="5,0,5,7" />
-			<Button Content="Send" Margin="5,0,5,7" Click="SendBtn_OnClick" Height="Auto" Width="80"
-			        HorizontalAlignment="Center" />
-			<TextBlock TextWrapping="Wrap" Text="Ok" TextAlignment="Center" Margin="5,0,5,7" FontSize="12" />
-		</StackPanel>
-	</materialDesign:Card>
+             d:DesignWidth="130" d:DesignHeight="160" MinWidth="130" MinHeight="170">
+	<Grid>
+		<materialDesign:Card Background="{StaticResource TertiaryHueLightBrush}"
+		                     Foreground="{StaticResource TertiaryHueLightForegroundBrush}" Margin="12">
+			<StackPanel Margin="6">
+				<TextBox Text="{Binding Title, Mode=TwoWay}" FontWeight="Medium" ToolTip="Command name"
+				         Margin="5,6,5,7" TextAlignment="Center" />
+				<TextBox Text="{Binding Command, Mode=TwoWay}" TextAlignment="Center" ToolTip="Send command"
+				         Margin="5,0,5,7" />
+				<Button Content="Send" Margin="5,0,5,7" Click="SendBtn_OnClick" Height="Auto" Width="80"
+				        HorizontalAlignment="Center" />
+				<TextBlock TextWrapping="Wrap" Text="{Binding CommandStatus, Mode=TwoWay}" TextAlignment="Center" Margin="5,0,5,7" FontSize="12" />
+			</StackPanel>
+		</materialDesign:Card>
+		<Button HorizontalAlignment="Right" Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" VerticalAlignment="Top" Content="×" Width="26" Height="26" Margin="4" FontSize="20" Click="Close_OnClick"/>
+	</Grid>
 </UserControl>

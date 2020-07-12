@@ -12,6 +12,15 @@ namespace Flexi_Serial_Terminal {
 			 }
 			);
 
+		public static readonly RoutedUICommand About = new RoutedUICommand
+			(
+			 "About",
+			 "About",
+			 typeof(CustomCommands),
+			 new InputGestureCollection {
+			 }
+			);
+
 		public static readonly RoutedUICommand ComConnOptions = new RoutedUICommand
 			(
 			 "COM Connection Settings",

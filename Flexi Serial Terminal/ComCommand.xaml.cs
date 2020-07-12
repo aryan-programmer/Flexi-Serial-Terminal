@@ -11,8 +11,8 @@ namespace Flexi_Serial_Terminal {
 		public static readonly DependencyProperty TitleProperty =
 			DependencyProperty.Register("Title", typeof(string), typeof(ComCommand), new PropertyMetadata(""));
 
-		public static readonly DependencyProperty CommandNameProperty =
-			DependencyProperty.Register("CommandName", typeof(string), typeof(ComCommand), new PropertyMetadata(""));
+		public static readonly DependencyProperty CommandProperty =
+			DependencyProperty.Register("Command", typeof(string), typeof(ComCommand), new PropertyMetadata(""));
 
 		public static readonly DependencyProperty CommandStatusProperty =
 			DependencyProperty.Register("CommandStatus", typeof(string), typeof(ComCommand), new PropertyMetadata(""));
@@ -21,16 +21,15 @@ namespace Flexi_Serial_Terminal {
 			InitializeComponent();
 		}
 
-
 		public string Title {
 			get => (string) GetValue(TitleProperty);
 			set => SetValue(TitleProperty, value);
 		}
 
 
-		public string CommandName {
-			get => (string) GetValue(CommandNameProperty);
-			set => SetValue(CommandNameProperty, value);
+		public string Command {
+			get => (string) GetValue(CommandProperty);
+			set => SetValue(CommandProperty, value);
 		}
 
 
@@ -39,9 +38,26 @@ namespace Flexi_Serial_Terminal {
 			set => SetValue(CommandStatusProperty, value);
 		}
 
-		public event Action Send;
+		public static readonly RoutedEvent SendEvent =
+			EventManager.RegisterRoutedEvent("Send", RoutingStrategy.Bubble, typeof(RoutedEventHandler),
+											 typeof(ComCommand));
 
+		public event RoutedEventHandler Send {
+			add => AddHandler(SendEvent, value);
+			remove => RemoveHandler(SendEvent, value);
+		}
 
-		private void SendBtn_OnClick(object sender, RoutedEventArgs e) => Send?.Invoke();
+		public static readonly RoutedEvent CloseEvent =
+			EventManager.RegisterRoutedEvent("Close", RoutingStrategy.Bubble, typeof(RoutedEventHandler),
+											 typeof(ComCommand));
+
+		public event RoutedEventHandler Close {
+			add => AddHandler(CloseEvent, value);
+			remove => RemoveHandler(CloseEvent, value);
+		}
+
+		private void SendBtn_OnClick(object sender, RoutedEventArgs e) => RaiseEvent(new RoutedEventArgs(SendEvent));
+
+		private void Close_OnClick(object sender, RoutedEventArgs e) => RaiseEvent(new RoutedEventArgs(CloseEvent));
 	}
 }

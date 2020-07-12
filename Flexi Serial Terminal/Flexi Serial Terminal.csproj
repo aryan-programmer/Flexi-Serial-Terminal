@@ -66,11 +66,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AboutDialog.xaml.cs">
+      <DependentUpon>AboutDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="BindingProxy.cs" />
     <Compile Include="MainWindowBindingProxy.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="RelayCommand.cs" />
-    <Compile Include="SentCommand.cs" />
+    <Compile Include="SentComCommandFor.cs" />
+    <Page Include="AboutDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ComCommand.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
