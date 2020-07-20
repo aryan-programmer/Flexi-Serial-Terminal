@@ -11,7 +11,7 @@
              mc:Ignorable="d" Height="170" Width="280">
 	<Grid>
 		<StackPanel Margin="0" VerticalAlignment="Top">
-			<TextBlock HorizontalAlignment="Center" Margin="0,15,0,0" TextWrapping="Wrap" Text="Flexi serial terminal 1.0.0"
+			<TextBlock x:Name="NameBlock" HorizontalAlignment="Center" Margin="0,15,0,0" TextWrapping="Wrap"
 			           VerticalAlignment="Top" FontSize="20" FontWeight="Bold" />
 			<TextBlock HorizontalAlignment="Center" Margin="0,15,0,0" TextWrapping="Wrap" Text="Developer: Aryan Chudasama"
 			           VerticalAlignment="Top" FontSize="14" />

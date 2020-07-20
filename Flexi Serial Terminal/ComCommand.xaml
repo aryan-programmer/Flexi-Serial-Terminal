@@ -17,7 +17,7 @@
 				         Margin="5,0,5,7" />
 				<Button Content="Send" Margin="5,0,5,7" Click="SendBtn_OnClick" Height="Auto" Width="80"
 				        HorizontalAlignment="Center" />
-				<TextBlock TextWrapping="Wrap" Text="{Binding CommandStatus, Mode=TwoWay}" TextAlignment="Center" Margin="5,0,5,7"
+				<TextBox TextWrapping="Wrap" Text="{Binding CommandStatus, Mode=TwoWay}" TextAlignment="Center" Margin="5,0,5,7" IsEnabled="False"
 				           FontSize="12" />
 			</StackPanel>
 		</materialDesign:Card>

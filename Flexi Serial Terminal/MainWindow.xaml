@@ -12,6 +12,12 @@
         Title="Flexi Serial Terminal" Height="760" Width="800" MinWidth="700" MinHeight="740">
 	<Window.Resources>
 		<local:MainWindowBindingProxy x:Key="MainWindowBindingProxy" Data="{Binding}" />
+		<Style TargetType="DataGridColumnHeader" x:Key="DataGridHeaderLeft" BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
+			<Setter Property="HorizontalContentAlignment" Value="Left" />
+		</Style>
+		<Style TargetType="DataGridColumnHeader" x:Key="DataGridHeaderCentered" BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
+			<Setter Property="HorizontalContentAlignment" Value="Center" />
+		</Style>
 	</Window.Resources>
 	<Window.CommandBindings>
 		<CommandBinding Command="local:CustomCommands.Exit" CanExecute="CanAlwaysExecute" Executed="Exit_OnExecuted" />
@@ -66,6 +72,7 @@
 							materialDesign:DataGridAssist.CellPadding="4"
 							materialDesign:DataGridAssist.ColumnHeaderPadding="4"
 							HeadersVisibility="Column" Foreground="Black" Background="{x:Null}"
+							ColumnHeaderStyle="{StaticResource DataGridHeaderCentered}"
 							VerticalScrollBarVisibility="Visible" BorderBrush="{x:Null}" Height="215">
 							<DataGrid.Columns>
 								<DataGridCheckBoxColumn
@@ -122,7 +129,7 @@
 								</DataGridTextColumn>
 								<DataGridTextColumn
 									IsReadOnly="True"
-									Header="Value"
+									Header="Response"
 									Binding="{Binding Path=Value, Mode=OneWay}">
 									<DataGridTextColumn.ElementStyle>
 										<Style TargetType="TextBlock" BasedOn="{StaticResource MaterialDesignDataGridTextColumnStyle}">
@@ -132,6 +139,8 @@
 									</DataGridTextColumn.ElementStyle>
 								</DataGridTextColumn>
 								<DataGridTemplateColumn
+									MinWidth="125"
+									HeaderStyle="{StaticResource DataGridHeaderLeft}"
 									IsReadOnly="True"
 									Header="Save file">
 									<DataGridTemplateColumn.CellTemplate>
