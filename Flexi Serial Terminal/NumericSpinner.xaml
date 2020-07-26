@@ -19,8 +19,8 @@
 		<TextBox VerticalContentAlignment="Center" Padding="0" Grid.Column="0" Grid.RowSpan="2"
 		         Text="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 		<Button Grid.Column="1" Grid.Row="0" Click="CmdUp_Click" Content="⯅" Height="Auto" HorizontalAlignment="Center"
-		        VerticalAlignment="Center" Padding="0" />
+		        VerticalAlignment="Center" Padding="0" FontSize="12" />
 		<Button Grid.Column="1" Grid.Row="1" Click="CmdDown_Click" Content="⯆" Height="Auto" HorizontalAlignment="Center"
-		        VerticalAlignment="Center" Padding="0" />
+		        VerticalAlignment="Center" Padding="0" FontSize="12" />
 	</Grid>
 </UserControl>

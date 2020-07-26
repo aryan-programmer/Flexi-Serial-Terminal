@@ -9,13 +9,15 @@
         Background="{DynamicResource MaterialDesignPaper}" FontFamily="{materialDesign:MaterialDesignFont}"
         TextElement.FontSize="14px" x:Class="Flexi_Serial_Terminal.MainWindow" mc:Ignorable="d"
         Closing="MainWindow_OnClosing"
-        Title="Flexi Serial Terminal" Height="760" Width="800" MinWidth="700" MinHeight="740">
+        Title="Flexi Serial Terminal" Height="700" Width="800" MinWidth="675" MinHeight="650">
 	<Window.Resources>
 		<local:MainWindowBindingProxy x:Key="MainWindowBindingProxy" Data="{Binding}" />
-		<Style TargetType="DataGridColumnHeader" x:Key="DataGridHeaderLeft" BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
+		<Style TargetType="DataGridColumnHeader" x:Key="DataGridHeaderLeft"
+		       BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
 			<Setter Property="HorizontalContentAlignment" Value="Left" />
 		</Style>
-		<Style TargetType="DataGridColumnHeader" x:Key="DataGridHeaderCentered" BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
+		<Style TargetType="DataGridColumnHeader" x:Key="DataGridHeaderCentered"
+		       BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
 			<Setter Property="HorizontalContentAlignment" Value="Center" />
 		</Style>
 	</Window.Resources>
@@ -33,11 +35,10 @@
 		<Grid>
 			<Grid.RowDefinitions>
 				<RowDefinition Height="Auto" />
-				<RowDefinition Height="Auto" />
-				<RowDefinition />
-				<RowDefinition Height="Auto" />
+				<RowDefinition Height="320*" />
+				<RowDefinition Height="300*" />
 			</Grid.RowDefinitions>
-			<Menu VerticalAlignment="Top" FontSize="18">
+			<Menu VerticalAlignment="Top" FontSize="18" Height="31.6">
 				<MenuItem Header="_File" Height="Auto" Padding="10,5">
 					<MenuItem Command="local:CustomCommands.ComConnOptions" Header="COM Connection _Settings" Height="Auto"
 					          Padding="10,5" />
@@ -51,10 +52,31 @@
 					<MenuItem Command="local:CustomCommands.About" Header="_About" Height="Auto" Padding="10,5" />
 				</MenuItem>
 			</Menu>
-			<StackPanel Orientation="Vertical" Grid.Row="1" MaxWidth="980">
-				<TextBlock Text="Poll commands &amp; values" HorizontalAlignment="Left" Margin="10,10,10,0"
+			<DockPanel Grid.Row="1" MaxWidth="980">
+				<TextBlock DockPanel.Dock="Top" Text="Poll commands &amp; values" HorizontalAlignment="Left" Margin="10,10,10,0"
 				           VerticalAlignment="Top"
 				           FontSize="20" FontWeight="Bold" />
+				<Grid DockPanel.Dock="Bottom" Margin="10,5,10,10">
+					<materialDesign:Card Background="{DynamicResource SecondaryHueLightBrush}"
+					                     Foreground="{DynamicResource SecondaryHueLightForegroundBrush}" HorizontalAlignment="Left">
+						<Grid Margin="5">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto" />
+								<ColumnDefinition />
+							</Grid.ColumnDefinitions>
+							<TextBlock HorizontalAlignment="Right" Margin="5" TextWrapping="Wrap" VerticalAlignment="Center"
+							           FontWeight="Medium" Text="Interval (ms) between two consecutive polls:" />
+							<local:NumericSpinner Grid.Column="1" HorizontalAlignment="Left" Margin="5"
+							                      VerticalAlignment="Center"
+							                      Value="{Binding Data.IndividualPollInterval, Mode=TwoWay, Source={StaticResource MainWindowBindingProxy}}"
+							                      MinValue="0" MaxValue="5000"
+							                      MinWidth="75" />
+						</Grid>
+					</materialDesign:Card>
+					<Button x:Name="TogglePollingBtn" Content="Start polling" Margin="0" Height="Auto"
+					        HorizontalAlignment="Right" VerticalAlignment="Bottom" FontSize="20" Click="TogglePollingBtn_OnClick"
+					        Padding="16,4" />
+				</Grid>
 				<materialDesign:Card Background="{DynamicResource SecondaryHueLightBrush}"
 				                     Foreground="{DynamicResource SecondaryHueLightForegroundBrush}" Margin="10,5">
 					<Grid>
@@ -73,7 +95,7 @@
 							materialDesign:DataGridAssist.ColumnHeaderPadding="4"
 							HeadersVisibility="Column" Foreground="Black" Background="{x:Null}"
 							ColumnHeaderStyle="{StaticResource DataGridHeaderCentered}"
-							VerticalScrollBarVisibility="Visible" BorderBrush="{x:Null}" Height="215">
+							VerticalScrollBarVisibility="Visible" BorderBrush="{x:Null}">
 							<DataGrid.Columns>
 								<DataGridCheckBoxColumn
 									CanUserReorder="False"
@@ -162,30 +184,15 @@
 							Click="AddPollDataRow_OnClick" />
 					</Grid>
 				</materialDesign:Card>
-				<materialDesign:Card Background="{DynamicResource SecondaryHueLightBrush}"
-				                     Foreground="{DynamicResource SecondaryHueLightForegroundBrush}" Margin="10,5,10,10"
-				                     HorizontalAlignment="Left">
-					<Grid Margin="5">
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="Auto" /> <ColumnDefinition />
-						</Grid.ColumnDefinitions>
-						<TextBlock HorizontalAlignment="Right" Margin="5" TextWrapping="Wrap" VerticalAlignment="Center"
-						           FontWeight="Medium" Text="Interval (ms) between two consecutive polls:" />
-						<local:NumericSpinner Grid.Column="1" HorizontalAlignment="Left" Margin="5"
-						                      VerticalAlignment="Center"
-						                      Value="{Binding Data.IndividualPollInterval, Mode=TwoWay, Source={StaticResource MainWindowBindingProxy}}"
-						                      MinValue="0" MaxValue="5000"
-						                      MinWidth="75" />
-					</Grid>
-				</materialDesign:Card>
-			</StackPanel>
-			<StackPanel Grid.Row="2" VerticalAlignment="Center" MaxWidth="980">
-				<TextBlock TextWrapping="Wrap" Text="Send commands" Padding="0" FontSize="20" FontWeight="Bold"
+			</DockPanel>
+			<DockPanel Grid.Row="2" MaxWidth="980">
+				<TextBlock DockPanel.Dock="Top" TextWrapping="Wrap" Text="Send commands" Padding="0" FontSize="20"
+				           FontWeight="Bold"
 				           HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,10,0" />
 				<materialDesign:Card Background="{DynamicResource SecondaryHueLightBrush}"
-				                     Foreground="{DynamicResource SecondaryHueLightForegroundBrush}" Margin="10,5">
+				                     Foreground="{DynamicResource SecondaryHueLightForegroundBrush}" Margin="10,5,10,10">
 					<Grid>
-						<ScrollViewer CanContentScroll="True" Height="250">
+						<ScrollViewer CanContentScroll="True">
 							<WrapPanel x:Name="ComCommandsPanel" Margin="0" ScrollViewer.VerticalScrollBarVisibility="Disabled" />
 						</ScrollViewer>
 						<Button
@@ -195,9 +202,7 @@
 							Click="AddComCommandBtn_Click" />
 					</Grid>
 				</materialDesign:Card>
-			</StackPanel>
-			<Button Grid.Row="3" x:Name="TogglePollingBtn" Content="Start polling" Margin="10" Height="Auto"
-			        HorizontalAlignment="Right" VerticalAlignment="Bottom" FontSize="18" Click="TogglePollingBtn_OnClick" />
+			</DockPanel>
 		</Grid>
 	</materialDesign:DialogHost>
 </Window>
